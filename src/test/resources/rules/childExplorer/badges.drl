@@ -1,0 +1,62 @@
+package eu.trentorise.game.model
+
+
+rule "badge 10.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 10000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Green Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge 30.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 30000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: '2 Green Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge 70.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 70000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: '3 Green Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge 100.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 100000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Silver Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge 200.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 200000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Silver Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge 500.000"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 500000)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Gold Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end

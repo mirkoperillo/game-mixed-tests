@@ -1,0 +1,13 @@
+package eu.trentorise.game.model
+
+
+rule "sentinel"
+when
+    $pc : PointConcept(name == "green leaves", $s : score)
+then
+	log("apply \'SENTINEL\'");
+    if($pc.getScore() > 5) {
+    	log("score > 5");
+    }
+    update($pc);
+end

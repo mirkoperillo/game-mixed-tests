@@ -1,0 +1,17 @@
+package eu.trentorise.game.model
+
+
+rule "update punti"
+when
+    InputData( $distance : data["distance"])
+    $pc : PointConcept(name == "passi")
+    $alberi : PointConcept(name == "alberi")
+then
+	log("Punti");
+	$pc.setScore($pc.getScore() + (int) $distance);
+	int alberi = Double.valueOf($pc.getScore() / 1000).intValue();
+	$alberi.setScore((double) alberi);
+	update($pc);
+	update($alberi);
+end
+

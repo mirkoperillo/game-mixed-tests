@@ -1,0 +1,12 @@
+package eu.trentorise.game.model
+
+
+rule "update green points"
+when
+    InputData( $walk : data["walk"])
+    $pc : PointConcept(name == "green leaves")
+then
+	log("apply \'INCREMENT update green points\'");
+    $pc.increment(((Integer) $walk).doubleValue());
+    update($pc);
+end
