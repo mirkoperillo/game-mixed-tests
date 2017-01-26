@@ -19,6 +19,15 @@ then
     insert(new UpdateTeams());
 end
 
+rule "log the members"
+when // here we need to understand better how InputData will be structured
+    Action(id == "increase_score")
+    Player($playerId: id, team == true, $total : totalMembers)
+then
+	log("Team "+ $playerId+" has "+ $total + " members");
+end
+
+
 
 rule "R2-propagation to team"
 when
