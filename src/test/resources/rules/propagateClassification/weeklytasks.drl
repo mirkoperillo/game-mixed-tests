@@ -1,0 +1,57 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.notification.MessageNotification;
+import eu.trentorise.game.model.PointConcept;
+import eu.trentorise.game.model.PointConcept.PeriodInstance;
+import eu.trentorise.game.task.Classification;
+
+import java.lang.Math;
+import java.util.HashMap;
+
+global Double const_record_percent;
+global Double const_weekly_nominal_distance;
+global String const_school_name;
+
+function Double findPeriodicMax(PointConcept pc, String pName) {
+// finds the maximum value in the history of a Periodic Point Concept
+// for a given period name
+	Double ret = 0.0;
+	PeriodInstance pi = pc.getPeriodCurrentInstance(pName);
+	int i = pi.getIndex();
+	while (i >= 0) {
+		pi = pc.getPeriodInstance(pName, i--);
+		Double s = pi.getScore();
+		if(s > ret)
+			ret = pi.getScore();
+	}
+	
+	return ret;
+}
+
+rule "R-weekly-record-distance"
+// checks if a team has reached its new WEEKLY record for a given counter
+// In that case, awards a bonus and sends out a MessageNotification
+// Can apply to CLASSES or SCHOOL
+// assumes a WEEKLY TASK as a trigger which is
+// currently stubbed by a dummy action "WeeklyTaskTest" with parameter "counter"
+when
+	Classification(name == 'team classification weekly', $counter : scoreType, position <=6) //only first 6 (SCHOOL + classes)
+	Player($teamId : id, team == true) // only works with teams
+	Game( $gameId: id)
+	$data: InputData()
+then
+	log("apply \'R-check-record-distance\'");
+	$data.getData().put("bonus", new Integer(100));
+	$data.getData().put("counter", new Integer(20));
+	insert(new UpdateTeams());
+	
+end
+
+rule "R-weekly-record-propagation"
+when
+	Member( $counter : inputData["counter"] != null, $bonus : inputData["bonus"] != null)
+	
+then
+	log("apply \'R-weekly-record-propagation\'");
+	log("bonus " + $bonus + " , " + $counter);
+end
