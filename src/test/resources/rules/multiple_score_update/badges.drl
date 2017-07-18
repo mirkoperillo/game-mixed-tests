@@ -1,0 +1,23 @@
+package eu.trentorise.game.model
+
+
+rule "badge-1"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 10)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Green Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+
+rule "badge-2"
+salience -10
+when
+    $pc : PointConcept(name == "passi", score >= 20)
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Silver Medal', badgeEarned not contains $badge)
+then
+	$bc.getBadgeEarned().add($badge);
+	update( $bc );
+end
+

@@ -1,0 +1,108 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.notification.MessageNotification;
+import eu.trentorise.game.model.PointConcept;
+import eu.trentorise.game.model.PointConcept.PeriodInstance;
+
+import java.lang.Math;
+
+global Double const_record_percent;
+global Double const_weekly_nominal_distance;
+global String const_school_name;
+
+function Double findPeriodicMax(PointConcept pc, String pName) {
+// finds the maximum value in the history of a Periodic Point Concept
+// for a given period name
+	Double ret = 0.0;
+	PeriodInstance pi = pc.getPeriodCurrentInstance(pName);
+	int i = pi.getIndex();
+	while (i >= 0) {
+		pi = pc.getPeriodInstance(pName, i--);
+		Double s = pi.getScore();
+		if(s > ret)
+			ret = pi.getScore();
+	}
+	
+	return ret;
+}
+
+rule "R-weekly-record-distance"
+// checks if a team has reached its new WEEKLY record for a given counter
+// In that case, awards a bonus and sends out a MessageNotification
+// Can apply to CLASSES or SCHOOL
+// assumes a WEEKLY TASK as a trigger which is
+// currently stubbed by a dummy action "WeeklyTaskTest" with parameter "counter"
+when
+	Action(id == "WeeklyTaskTest") // simulates triggering of weekly task
+	$id : InputData( $c : data["counter"] != null)
+	$pc : PointConcept(name == (String)$c)
+	Player($teamId : id, team == true) // only works with teams
+	Game( $gameId: id)
+	$bd : PointConcept(name == "bonus_distance")
+	$td : PointConcept(name == "total_distance")
+then
+	log("apply \'R-check-record-distance\'");
+	Double current = $pc.getPeriodCurrentScore("weekly");
+	Double max = findPeriodicMax($pc,"weekly");
+	if (current.equals(max)) {
+		MessageNotification mn = new MessageNotification($gameId,$teamId, 'WeeklyRecordClass');
+		mn.addData("_score_type_", $c);
+		mn.addData("_record_", current);
+		insert(mn);
+		// assign bonus
+		Double bonus = Math.ceil(current * const_record_percent);
+		$bd.setScore($bd.getScore() + bonus);
+		$td.setScore($td.getScore() + bonus);
+		update($bd);
+		update($td);
+		$id.getData().put("bonus", bonus);
+		insert(new UpdateTeams());
+	}
+end
+
+rule "R-weekly-record-propagation"
+when
+	Member( $c : inputData["counter"] != null, $bonus : inputData["bonus"] != null)
+	$pc : PointConcept(name == (String)$c)
+	Player($teamId : id, team == true) // only works with teams
+	$bd : PointConcept(name == "bonus_distance")
+	$td : PointConcept(name == "total_distance")
+then
+	log("apply \'R-weekly-record-propagation\'");
+	$bd.setScore($bd.getScore() + (Double)$bonus);
+	$td.setScore($td.getScore() + (Double)$bonus);
+	update($bd);
+	update($td);
+	insert(new UpdateTeams());
+end
+
+
+rule "R-weekly-over-nominal-distance"
+// checks if the SCHOOL has reached a  WEEKLY TOTAL distance 
+// that exceeds a certain constant, i.e., const_weekly_nominal_distance 
+// In that case, awards a bonus and sends out a MessageNotification
+// assumes a WEEKLY TASK as a trigger which is
+// currently stubbed by a dummy action "WeeklyTaskTest" 
+when
+	Action(id == "WeeklyTaskTest")
+	$tot_dist : PointConcept(name == "total_distance")
+	Player($teamId : id, team == true, $teamId == const_school_name) // only applies to school
+	Game( $gameId: id)
+	$bonus_dist : PointConcept(name == "bonus_distance")
+then
+	Double current = $tot_dist.getPeriodCurrentScore("weekly");
+	if (current > const_weekly_nominal_distance) {
+		log("apply \'R-weekly-over-nominal-distance\'");
+		MessageNotification mn = new MessageNotification($gameId,$teamId, 'WeeklyPerformanceSchool');
+		 mn.addData("_score_type_", "total_distance");
+		 mn.addData("_performance_", current);
+		 insert(mn);
+		 // assign bonus
+		Double bonus = Math.ceil(current * const_record_percent);
+		$bonus_dist.setScore($bonus_dist.getScore() + bonus);
+		$tot_dist.setScore($tot_dist.getScore() + bonus);
+		update($bonus_dist);
+		update($tot_dist);
+
+	}
+end

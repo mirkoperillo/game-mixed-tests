@@ -1,0 +1,80 @@
+# insert your constants to use in game rules
+# 
+# SAMPLE USAGE 
+# 
+# constants file
+# var_name = var_value
+# 
+#
+# usage in rule
+# global VALUE_TYPE var_name;
+#
+# supported VALUE_TYPE
+# Integer (i.e. var=1)
+# Double  (i.e. var=2.3)
+# String  (i.e. var=park)
+# java.util.ArrayList (i.e var=park,street,bikestation)
+
+# constants for modal distance (except for pedibus)
+# const_pandr_distance = 150.0
+# const_bus_distance = 1800.0
+# const_zeroimpact_distance = 500.0
+
+# constants for meteo bonuses
+# const_cloudy_bonus = 50.0
+# const_rain_bonus = 100.0
+# const_snow_bonus = 200.0
+
+#for zero impact trips taken autonomously
+const_zi_solo_bonus = 100.0  
+
+#bonus for reaching leg (school)
+const_leg_bonus=0.0
+
+#bonus for beating weekly record (as percent)
+const_record_percent_class=0.10
+const_record_percent_school=0.05
+
+#multiplier for pedibus trips
+const_pedibus_multiplier = 1.5 
+
+#name of the school team/player
+#const_school_name=Scuola Primaria 'San Vigilio' di Vela
+const_school_name=scuola
+
+# bonus for NoCarDayClass
+const_NoCarDayClass_bonus = 5000.0
+
+# bonus for ZeroImpactDayClass
+const_ZeroImpactDayClass_bonus = 10000.0
+
+# nominal weekly distance estimated for whole school
+const_weekly_nominal_distance=450000.0
+
+# "almost" distance from next leg (in meters, used in notifications)
+const_almost_reached_next_leg=50000.0
+
+#constants representing distances to legs 
+Verona_distance=93423.0
+Foce_Del_Po_distance=233287.0
+San_Marino_distance=379675.0
+Pescia_distance=581538.0
+Volterra_distance=659401.0
+Cascata_Marmore_distance=886741.0
+Roma_distance=980075.0
+Pompei_distance=1222635.0
+Matera_distance=1448889.0
+Bari_distance=1511265.0
+Reggio_Calabria_distance=1983797.0
+Catania_distance=2097317.0
+Atene_distance=3090817.0
+Cairo_distance=4210817.0
+Assuan_distance=5124317.0
+Al_Goled_distance=5874317.0
+Meroe_distance=6252317.0
+Dinder_distance=6723117.0
+Boma_distance=7530117.0
+Kangole_distance=8062767.0
+
+const_day_millis=86400000l
+

@@ -2,7 +2,9 @@ package eu.trentorise.game.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -47,18 +49,24 @@ public class PropagateClassificationGameTest extends GameTest {
 		loadClasspathRules(GAME, Arrays.asList("rules/" + GAME + "/constants",
 				"rules/" + GAME + "/ruleBadges.drl", "rules/" + GAME
 						+ "/rulePoint.drl", "rules/" + GAME
-						+ "/weeklytasks.drl"));
+						+ "/weeklytasks.drl", "rules/" + GAME
+						+ "/propagate.drl"));
 
 		TaskSchedule schedule = new TaskSchedule();
 		schedule.setCronExpression("");
 		GeneralClassificationTask task = new GeneralClassificationTask(
 				schedule, "steps", "team classification weekly");
-		addGameTask(GAME, task);
+		// addGameTask(GAME, task);
 
 	}
 
 	@Override
 	public void defineExecData(List<ExecData> execList) {
+		Map<String, Object> d = new HashMap<String, Object>();
+		d.put("meters-walked", 10d);
+		d.put("param1", "FILLED_PARAM");
+		ExecData data = new ExecData(GAME, "increase_score", "alice", d);
+		execList.add(data);
 	}
 
 	@Override

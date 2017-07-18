@@ -1,0 +1,59 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.notification.BadgeNotification;
+import eu.trentorise.game.notification.MessageNotification;
+
+rule "MessageNotification test generate"
+// rule for stubbing the issuing of MessageNotification
+// uses a dummy action "NotificationTest" as trigger, with parameter
+// "type" to differnetiate the various notifications in the game
+lock-on-active
+when
+	Action(id == "NotificationTest")
+	InputData( $type : data["type"] != null)
+	Player($teamId : id, team == true) // only works with teams
+	Game( $gameId: id)
+then
+	log("apply \'MessageNotification test generate\'");
+	MessageNotification mn = new MessageNotification($gameId,$teamId, (String)$type);
+	if ( ((String)$type).equals("ZeroImpactDayClass")
+		|| ((String)$type).equals("NoCarDayClass")) {
+		mn.addData("_bonus_", 1000.0);
+	}
+	else if (((String)$type).equals("AlmostReachedLeg")) {
+		mn.addData("_leg_", "test-leg");
+	}
+	else if (((String)$type).equals("WeeklyRecordClass")) {
+		mn.addData("_record_", 999.9);
+	}
+	else if (((String)$type).equals("WeeklyPerformanceSchool")) {
+		mn.addData("_performance_", 555.5);
+	}
+	else if (((String)$type).equals("ChallengeWon")) {
+		mn.addData("_VirtualPrize", "test-passaggio-in-traghetto");
+	}
+	
+	insert(mn);
+end
+
+rule "BadgeNotification test generate"
+// rule for stubbing the issuing of BadgeNotification
+// uses a dummy action "NotificationTest" as trigger, with parameter
+// "badge" which hold the name of the badge
+lock-on-active
+when
+	Action(id == "NotificationTest")
+	InputData( $badge : data["badge"] != null)
+	$bc : BadgeCollectionConcept(name == "TestBadges")
+	Player($teamId : id, team == true) // only works with teams
+	Game( $gameId: id)
+then
+	log("apply \'BadgeNotification test generate\'");
+	if ($bc != null) {
+		String suffix = "_" + $bc.getBadgeEarned().size();
+		$bc.getBadgeEarned().add((String)$badge + suffix);
+		BadgeNotification bn = new BadgeNotification($gameId, $teamId, $bc.getName(), (String)$badge);
+		update($bc);
+		insert(bn);
+	}	
+end	

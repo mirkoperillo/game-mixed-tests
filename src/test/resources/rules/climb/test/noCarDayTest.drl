@@ -1,0 +1,20 @@
+package eu.trentorise.game.model
+
+global String const_school_name;
+
+rule "test_no_car_day_counter"
+no-loop
+when
+	Action(id == "NoCarCounterTest")
+	Player($teamId : id, $teamId != const_school_name, team == true, $class_size : totalMembers) 
+	$ct: PointConcept(name == "car_trips", $car_today :getPeriodCurrentScore("daily"),
+		((Double)$car_today).intValue() == 0)
+	$part : PointConcept(name == "participation_count", $today : getPeriodCurrentScore("daily"),
+		((Double)$today).intValue() == ((Integer)$class_size).intValue() )
+then
+	log("apply \'test_no_car_day_counter\' with today car counter = " + $car_today);
+	if (((Double)$car_today).intValue() == 0)
+		log("NO CARS TODAY");
+    else 
+    	log("CARS TODAY = " + ((Double)$car_today).intValue());
+end

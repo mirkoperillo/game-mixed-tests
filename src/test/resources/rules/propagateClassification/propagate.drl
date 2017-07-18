@@ -1,0 +1,39 @@
+package eu.trentorise.game.model
+
+
+rule "propagate"
+when 
+    Action(id == "increase_score")
+    $d: InputData( $distance : data["meters-walked"] != null)
+    $pc : PointConcept(name == "steps")
+    Player($playerId: id)
+then
+	log("apply propagate");
+    double steps = (double) $distance;  
+    $pc.setScore($pc.getScore() + steps); 
+    log("Player " +$playerId + " increases of "+steps+" steps");
+    update($pc);
+    insert(new UpdateTeams("test-propagation"));
+end
+
+
+rule "add bonus"
+when 
+    Propagation(action == "test-propagation")
+    $d: InputData()
+    Player(team == true)
+then
+	log("apply bonus propagate");
+    $d.getData().put("bonus",100);
+    insert(new UpdateTeams("test-propagation"));
+end
+
+rule "propagated"
+when 
+    Propagation(action == "test-propagation")
+    $d: InputData( $distance : data["meters-walked"] != null, $bonus: data['bonus'])
+    $pc : PointConcept(name == "steps")
+    Player($playerId: id)
+then
+	log("apply propagate,bonus: " + $bonus);
+end

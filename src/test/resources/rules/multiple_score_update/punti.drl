@@ -1,0 +1,27 @@
+package eu.trentorise.game.model
+
+
+rule "update punti"
+when
+    InputData( $distance : data["distance"])
+    $pc : PointConcept(name == "passi")
+then
+	log("Punti");
+	$pc.setScore($pc.getScore() + (int) $distance);
+	update($pc);
+end
+
+
+rule "bonus punti for badge"
+when
+    $bc : BadgeCollectionConcept(name == "medaglie", $badge: 'Green Medal', badgeEarned contains $badge)
+    $pc : PointConcept(name == "passi")
+then
+	log("Bonus for badge");
+	$pc.setScore($pc.getScore() + 10);
+	update($pc);
+end
+
+
+
+
