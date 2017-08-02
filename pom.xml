@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>it.smartcommunitylab.gamification</groupId>
 			<artifactId>game-engine.test</artifactId>
-			<version>0.8.0</version>
+			<version>0.9.0</version>
 			<scope>test</scope>
 		</dependency>
 		
