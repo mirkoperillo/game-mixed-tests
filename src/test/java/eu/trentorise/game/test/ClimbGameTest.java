@@ -1,6 +1,5 @@
 package eu.trentorise.game.test;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -116,21 +115,10 @@ public class ClimbGameTest extends GameTest {
         senzAuto.setVariables(vars);
         gameSrv.saveChallengeModel(GAME_ID, senzAuto);
 
-
-        File rulesFolder = new File(
-                "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Sopramonte");
-
-        List<String> rules = new ArrayList<>();
-        for (File rule : rulesFolder.listFiles()) {
-            if (rule.isFile()) {
-                rules.add(rule.getAbsolutePath());
-            }
-        }
-
-        // add challenge rule
-        rules.add(rulesFolder.getAbsolutePath() + "/challenges/ChallengeScuolaSenzAuto.drl");
-
-        loadFilesystemRules(GAME_ID, rules);
+        String rulesFolderPath =
+                "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Sopramonte/";
+        loadFilesystemRules(GAME_ID, rulesFolderPath, true,
+                Arrays.asList(new ExcludeRuleNameFilter("ChallengeScuolaSenzAuto")));
 
     }
 
