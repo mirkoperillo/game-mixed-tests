@@ -13,6 +13,7 @@ public class I110GameTest extends GameTest {
 
     private static final String GAME = "i110";
     private static final String ACTION = "save_itinerary";
+    private static final String DOMAIN = "my-domain";
 
     @Override
     public void initEnv() {}
@@ -23,7 +24,7 @@ public class I110GameTest extends GameTest {
         List<GameConcept> concepts = new ArrayList<GameConcept>();
         concepts.add(new PointConcept("green leaves"));
 
-        defineGameHelper(GAME, Arrays.asList(ACTION), concepts);
+        defineGameHelper(DOMAIN, GAME, Arrays.asList(ACTION), concepts);
 
         loadClasspathRules(GAME, Arrays.asList("rules/" + GAME + "/sentinel.drl",
                 "rules/" + GAME + "/incrementPoints.drl"));

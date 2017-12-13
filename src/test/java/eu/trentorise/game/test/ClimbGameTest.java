@@ -25,6 +25,7 @@ import eu.trentorise.game.services.PlayerService;
 public class ClimbGameTest extends GameTest {
 
     private static final String GAME_ID = "Climb";
+    private static final String DOMAIN = "my-domain";
 
     @Autowired
     private PlayerService playerSrv;
@@ -98,7 +99,7 @@ public class ClimbGameTest extends GameTest {
         }
 
 
-        defineGameHelper(GAME_ID, actions, concepts);
+        defineGameHelper(DOMAIN, GAME_ID, actions, concepts);
 
 
         // Challenge
