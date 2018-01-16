@@ -1,0 +1,44 @@
+package eu.trentorise.game.model
+
+
+global Double login_action_score;
+global Double registration_action_score;
+global Double make_question_action_score;
+global Double answer_question_action_score;
+
+
+rule "login action"
+when
+	$action: Action(id == "login")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + login_action_score);
+	update($pc);
+end
+
+rule "registration action"
+when
+	$action: Action(id == "registration")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + registration_action_score);
+	update($pc);
+end
+
+rule "make question action"
+when
+	$action: Action(id == "make-question")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + make_question_action_score);
+	update($pc);
+end
+
+rule "answer question action"
+when
+	$action: Action(id == "answer-question")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + answer_question_action_score);
+	update($pc);
+end
