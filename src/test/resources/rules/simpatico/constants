@@ -29,3 +29,10 @@ login_action_score=5.0
 registration_action_score=50.0
 make_question_action_score=10.0
 answer_question_action_score=20.0
+like_action_score=5.0
+update_description_action_score=15.0
+
+login_count_bonus_1=5
+login_count_bonus_2=10
+login_bonus_1=25.0
+login_bonus_2=60.0
