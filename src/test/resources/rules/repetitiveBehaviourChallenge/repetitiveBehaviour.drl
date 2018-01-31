@@ -1,0 +1,98 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.model.PointConcept;
+import eu.trentorise.game.model.PointConcept.PeriodInstance;
+import eu.trentorise.game.core.Utility;
+import eu.trentorise.game.model.core.Notification;
+import eu.trentorise.game.notification.ChallengeCompletedNotication;
+
+import java.util.Date;
+import java.util.Calendar;
+
+global Utility utils;
+
+
+function Double numberOfActivePeriods(PointConcept pc, Double target, String pName, long start) {
+	Double activePeriods = 0d;
+	
+	PeriodInstance pi = pc.getPeriodCurrentInstance(pName);
+	
+	if (pi == null){
+		return activePeriods;
+	}
+	
+	int i = pi.getIndex();
+	while ( (i >= 0) && (pi.getStart() >= start) ) {	
+		pi = pc.getPeriodInstance(pName, i);
+		Double s = pi.getScore();
+		
+		if(s >= target)
+			activePeriods++;
+		i--;	
+	}
+	
+	return activePeriods;
+}
+
+rule "repetitiveBehaviour"
+	salience -2000
+    when 
+    	//checking if it's the right challenge and if it's not completed
+        $c: ChallengeConcept( modelName == 'repetitiveBehaviour',
+        					  $counter: fields['counterName'],
+        					  $target: fields['target'],
+        					  $period: fields['periodName'],
+        					  $periodTarget: fields['periodTarget'],
+        					  $bonusPointType: fields['bonusPointType'],
+        					  $bonusScore: fields['bonusScore'],
+        					  isCompleted() != true,
+        					  $startTime : getStart().getTime())
+        $pc : PointConcept(name == (String) $counter)
+        $pcBonus : PointConcept(name == (String) $bonusPointType)
+        Player($playerId : id)
+        Game( $gameId: id)
+    then
+        
+        Double activePeriods = 0d;
+	
+	PeriodInstance pi = $pc.getPeriodCurrentInstance((String) $period);
+	
+	int i = pi.getIndex();
+	while ( (i >= 0) && (pi.getStart() >= (Long) $startTime) ) {	
+	    utils.log('**' + pi.getStart() + ' >= ' + (Long) $startTime);
+		Double s = pi.getScore();
+		utils.log('**score' + s);
+		if(s >= (Double) $target)
+			activePeriods++;
+		i--;	
+		utils.log('**indice--' + i);
+		utils.log('**active' + activePeriods);
+		pi = $pc.getPeriodInstance((String) $period, i);
+	}
+        
+        
+        
+        if(activePeriods >= (Double) $periodTarget) {
+        
+        
+        utils.log('repetitiveBehaviour COMPLETED');
+        
+        $c.completed();
+        
+        // assign bonus
+		//How are the point bounded to the player???
+		if ($bonusScore instanceof Long) {
+		     $pcBonus.setScore($pcBonus.getScore() + (Long)$bonusScore );
+		} else if ($bonusScore instanceof Integer) {
+		     $pcBonus.setScore($pcBonus.getScore() + (Integer)$bonusScore );
+		} else {
+		   $pcBonus.setScore($pcBonus.getScore() +  (Double)$bonusScore );
+		}
+		
+		update($pcBonus);
+		update($c);
+		}
+		
+end
+
+
