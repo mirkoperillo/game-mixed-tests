@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import eu.trentorise.game.model.ChallengeModel;
 import eu.trentorise.game.model.PointConcept;
 import eu.trentorise.game.model.TeamState;
+import eu.trentorise.game.model.core.ChallengeAssignment;
 import eu.trentorise.game.model.core.GameConcept;
 import eu.trentorise.game.services.GameService;
 import eu.trentorise.game.services.PlayerService;
@@ -25,6 +26,7 @@ import eu.trentorise.game.services.PlayerService;
 public class ClimbGameTest extends GameTest {
 
     private static final String GAME_ID = "Climb";
+    private static final String DOMAIN = "my-domain";
 
     @Autowired
     private PlayerService playerSrv;
@@ -54,8 +56,8 @@ public class ClimbGameTest extends GameTest {
         data.put("VirtualPrize", "Mongolfiera da Islanda a Fiordi Norvegesi");
         data.put("bonusPointType", "bonus_distance");
         data.put("prizeWon", false);
-        playerSrv.assignChallenge(GAME_ID, "scuola", "ScuolaSenzAuto", "test-challenge-senz-auto",
-                data, null, null);
+        playerSrv.assignChallenge(GAME_ID, "scuola", new ChallengeAssignment("ScuolaSenzAuto",
+                "test-challenge-senz-auto", data, null, null, null));
 
     }
 
@@ -98,7 +100,7 @@ public class ClimbGameTest extends GameTest {
         }
 
 
-        defineGameHelper(GAME_ID, actions, concepts);
+        defineGameHelper(DOMAIN, GAME_ID, actions, concepts);
 
 
         // Challenge

@@ -45,7 +45,7 @@ then
 	log("apply \'R-check-record-distance\'");
 	Double current = $pc.getPeriodCurrentScore("weekly");
 	Double max = findPeriodicMax($pc,"weekly");
-	if (current.equals(max)) {
+	if (max > 0 && current.equals(max)) {
 		MessageNotification mn = new MessageNotification($gameId,$teamId, 'WeeklyRecordClass');
 		mn.addData("_score_type_", $counter);
 		mn.addData("_record_", current);

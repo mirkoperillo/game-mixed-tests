@@ -20,6 +20,7 @@ public class CarRaceConditionGameTest extends GameTest {
     PlayerService playerSrv;
 
     private static final String GAME = "climb";
+    private static final String DOMAIN = "my-domain";
 
     @Override
     public void initEnv() {
@@ -136,7 +137,7 @@ public class CarRaceConditionGameTest extends GameTest {
 
         concepts.add(new BadgeCollectionConceptBuilder().setName("LegsToKangole").build());
 
-        defineGameHelper(GAME, Arrays.asList("NoCarCounterTest", "PlayerCalendarTrip",
+        defineGameHelper(DOMAIN, GAME, Arrays.asList("NoCarCounterTest", "PlayerCalendarTrip",
                 "ClassWalkTrip", "PedibusKidTrip", "PedibusVolunteerTrip"), concepts);
 
         try {

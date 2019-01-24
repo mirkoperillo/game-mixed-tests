@@ -22,6 +22,8 @@ public class MultilevelTeamsGameTest extends GameTest {
 
     private static final String GAME = "multilevelteams";
     private static final String ACTION = "increase_score";
+    private static final String DOMAIN = "my-domain";
+
 
     @Override
     public void initEnv() {
@@ -52,7 +54,7 @@ public class MultilevelTeamsGameTest extends GameTest {
         concepts.add(new PointConcept("steps"));
         concepts.add(new BadgeCollectionConcept("travel"));
 
-        defineGameHelper(GAME, Arrays.asList(ACTION), concepts);
+        defineGameHelper(DOMAIN, GAME, Arrays.asList(ACTION), concepts);
 
         try {
             loadClasspathRules(GAME, "rules/" + GAME);

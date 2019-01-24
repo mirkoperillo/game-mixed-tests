@@ -15,6 +15,7 @@ public class MultipleScoreUpdateGameTest extends GameTest {
 
     private static final String GAME_ID = "multiple_score_update";
     private static final String ACTION_ID = "child_distance";
+    private static final String DOMAIN = "my-domain";
 
     @Override
     public void initEnv() {}
@@ -24,7 +25,7 @@ public class MultipleScoreUpdateGameTest extends GameTest {
         List<GameConcept> concepts = new ArrayList<>();
         concepts.add(new PointConcept("passi"));
         concepts.add(new BadgeCollectionConcept("medaglie"));
-        defineGameHelper(GAME_ID, Arrays.asList(ACTION_ID), concepts);
+        defineGameHelper(DOMAIN, GAME_ID, Arrays.asList(ACTION_ID), concepts);
 
         try {
             loadClasspathRules(GAME_ID, "rules/" + GAME_ID);
