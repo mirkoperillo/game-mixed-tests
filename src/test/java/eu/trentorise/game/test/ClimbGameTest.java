@@ -78,7 +78,7 @@ public class ClimbGameTest extends GameTest {
     @Override
     public void defineGame() {
 
-        mongo.getDb().dropDatabase();
+        mongo.getDb().drop();
 
         List<String> actions = Arrays.asList("PedibusKidTrip", "CalendarDayFilled",
                 "PlayerCalendarTrip", "ClassWalkTrip");
