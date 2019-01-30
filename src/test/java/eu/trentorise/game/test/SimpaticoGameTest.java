@@ -27,7 +27,7 @@ public class SimpaticoGameTest extends GameTest {
 
     @Override
     public void defineGame() {
-        defineGameHelper(GAME,
+        defineGameHelper(null, GAME,
                 Arrays.asList("login", "registration", "make-question", "answer-question", "like",
                         "update-description"),
                 Arrays.asList(
@@ -66,7 +66,7 @@ public class SimpaticoGameTest extends GameTest {
 
     @Override
     public void analyzeResult() {
-        assertionPoint(GAME, 165.0, "player1", "karma points");
+        assertionPoint(GAME, 105.0, "player1", "karma points");
 
     }
 

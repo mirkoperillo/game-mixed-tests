@@ -19,6 +19,7 @@ import eu.trentorise.game.model.ChallengeModel;
 import eu.trentorise.game.model.PointConcept;
 import eu.trentorise.game.model.PointConceptStateHelperFactory;
 import eu.trentorise.game.model.PointConceptStateHelperFactory.PointConceptStateHelper;
+import eu.trentorise.game.model.core.ChallengeAssignment;
 import eu.trentorise.game.model.core.GameConcept;
 import eu.trentorise.game.services.GameService;
 import eu.trentorise.game.services.PlayerService;
@@ -66,9 +67,11 @@ public class RepetitiveBehaviourChallengeInTimeTest extends GameTest {
         data.put("periodTarget", 3d);
         data.put("bonusScore", 400d);
         data.put("bonusPointType", "green leaves");
-        playerSrv.assignChallenge(GAME, PLAYER, "repetitiveBehaviour",
-                "repetitiveBehaviourInstance", data, parseFromString("2018-01-27"),
+        ChallengeAssignment challenge = new ChallengeAssignment("repetitiveBehaviour",
+                "repetitiveBehaviourInstance", data, "assigned",
+                parseFromString("2018-01-27"),
                 parseFromString("2018-02-03"));
+        playerSrv.assignChallenge(GAME, PLAYER, challenge);
 
 
     }
@@ -99,7 +102,7 @@ public class RepetitiveBehaviourChallengeInTimeTest extends GameTest {
         concepts.add(create("Train_Km"));
 
 
-        defineGameHelper(GAME, Arrays.asList(ACTION), concepts);
+        defineGameHelper(null, GAME, Arrays.asList(ACTION), concepts);
 
         try {
             loadClasspathRules(GAME, "rules/repetitiveBehaviourChallenge");

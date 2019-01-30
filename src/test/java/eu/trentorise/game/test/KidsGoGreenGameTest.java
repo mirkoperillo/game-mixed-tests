@@ -86,7 +86,7 @@ public class KidsGoGreenGameTest extends GameTest {
         }
 
 
-        defineGameHelper(GAME_ID, actions, concepts);
+        defineGameHelper(null, GAME_ID, actions, concepts);
 
 
         String rulesFolderPath =
