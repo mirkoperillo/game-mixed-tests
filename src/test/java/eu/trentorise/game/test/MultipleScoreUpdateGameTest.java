@@ -45,6 +45,8 @@ public class MultipleScoreUpdateGameTest extends GameTest {
     }
 
     @Override
-    public void analyzeResult() {}
+    public void analyzeResult() {
+        assertionPoint(GAME_ID, 30d, "child1", "passi");
 
+    }
 }
