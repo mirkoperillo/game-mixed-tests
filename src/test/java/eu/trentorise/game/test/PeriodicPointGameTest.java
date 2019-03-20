@@ -68,7 +68,7 @@ public class PeriodicPointGameTest extends GameTest {
 
     @Override
     public void analyzeResult() {
-
+        assertionPoint(GAME, 30d, "prowler", "green leaves");
     }
 
 }

@@ -20,7 +20,8 @@ public class PointGameTest extends GameTest {
     @Autowired
     PlayerService playerSrv;
 
-    private static final String GAME = "test";
+    private static final String GAME = "test"; // no rules for this game in resources..no useful
+                                               // test
     private static final String ACTION = "save_itinerary";
     private static final String DOMAIN = "my-domain";
 
