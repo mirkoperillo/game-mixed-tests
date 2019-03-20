@@ -61,6 +61,9 @@ public class ChildExplorerGame extends GameTest {
     }
 
     @Override
-    public void analyzeResult() {}
+    public void analyzeResult() {
+        assertionPoint(GAME_ID, 39450d, "child1", "passi");
+        assertionPoint(GAME_ID, 39d, "child1", "alberi");
+    }
 
 }
