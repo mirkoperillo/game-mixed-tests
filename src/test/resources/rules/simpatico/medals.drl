@@ -1,0 +1,34 @@
+package  eu.trentorise.game.model
+
+rule "bronze medal"
+	salience -1000
+when 
+    PointConcept(name == 'karma points', score >= 100)
+    $bc : BadgeCollectionConcept($badge : 'bronze_medal',name == 'medals', badgeEarned not contains $badge)
+then
+    $bc.getBadgeEarned().add($badge);
+    update( $bc );
+end
+
+
+rule "silver medal"
+	salience -1000
+when 
+    PointConcept(name == 'karma points', score >= 400)
+    $bc : BadgeCollectionConcept($badge : 'silver_medal',name == 'medals', badgeEarned not contains $badge)
+then
+    $bc.getBadgeEarned().add($badge);
+    update( $bc );
+end
+
+
+rule "gold medal"
+	salience -1000
+when 
+    PointConcept(name == 'karma points', score >= 1000)
+    $bc : BadgeCollectionConcept($badge : 'gold_medal',name == 'medals', badgeEarned not contains $badge)
+then
+    $bc.getBadgeEarned().add($badge);
+    update( $bc );
+end
+

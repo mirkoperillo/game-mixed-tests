@@ -1,0 +1,129 @@
+package eu.trentorise.game.model
+
+
+import java.time.*;
+import eu.trentorise.game.core.Utility;
+
+global Utility utils;
+
+global Double login_action_score;
+global Double registration_action_score;
+global Double make_question_action_score;
+global Double answer_question_action_score;
+global Double like_action_score;
+global Double update_description_action_score;
+
+global Double login_bonus_1;
+global Double login_bonus_2;
+global Integer login_count_bonus_1;
+global Integer login_count_bonus_2;
+
+
+
+rule "login action"
+lock-on-active
+when
+	$action: Action(id == "login")
+    $pc : PointConcept(name == "karma points")
+    $cd : CustomData()
+then
+	$pc.setScore($pc.getScore() + login_action_score);
+	update($pc);
+	
+	// check for login in rows
+	Integer loginCount = $cd.get("loginCount") == null ? 1 : (Integer) $cd.get("loginCount");
+	LocalDate lastLoginDate = $cd.get("lastLogin") == null ? LocalDate.now() : LocalDate.parse((String) $cd.get("lastLogin"));
+	String lastLogin = lastLoginDate.toString();
+	  
+	LocalDate today = LocalDate.now();
+  
+	Duration duration = Duration.between(today.atStartOfDay(), lastLoginDate.atStartOfDay());
+
+    long diff = duration.abs().toDays();
+    
+    if(diff == 1) {
+    	loginCount++;
+    } else if(diff > 1) {
+    	loginCount = 1;
+    }
+
+   	lastLogin = today.toString();
+    $cd.put("loginCount",loginCount);
+    $cd.put("lastLogin",lastLogin);
+	update($cd);
+end
+
+
+
+rule "login in a row low bonus"
+when
+	Action(id == "login")
+	$cd: CustomData(this["loginCount"] == login_count_bonus_1)
+	$pc: PointConcept(name == "karma points")
+then	
+	utils.log("login LOW BONUS");
+	$pc.setScore($pc.getScore() + login_bonus_1);
+	update($pc);
+end
+
+
+rule "login in a row high bonus"
+when
+	Action(id == "login")
+	$cd: CustomData(this["loginCount"] == login_count_bonus_2)
+	$pc: PointConcept(name == "karma points")
+then	
+	utils.log("login HIGH BONUS");
+	$pc.setScore($pc.getScore() + login_bonus_2);
+	update($pc);
+	
+	$cd.put("loginCount",1);
+    $cd.put("lastLogin",LocalDate.now().toString());
+	update($cd);
+end 
+
+
+rule "registration action"
+when
+	$action: Action(id == "registration")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + registration_action_score);
+	update($pc);
+end
+
+rule "make question action"
+when
+	$action: Action(id == "make-question")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + make_question_action_score);
+	update($pc);
+end
+
+rule "answer question action"
+when
+	$action: Action(id == "answer-question")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + answer_question_action_score);
+	update($pc);
+end
+
+rule "like action"
+when
+	$action: Action(id == "like")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + like_action_score);
+	update($pc);
+end
+
+rule "update description action"
+when
+	$action: Action(id == "update-description")
+    $pc : PointConcept(name == "karma points")
+then
+	$pc.setScore($pc.getScore() + update_description_action_score);
+	update($pc);
+end

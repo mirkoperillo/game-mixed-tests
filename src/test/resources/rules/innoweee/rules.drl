@@ -1,0 +1,138 @@
+package eu.trentorise.game.model
+import eu.trentorise.game.core.Utility;
+
+global Double co2_constant;
+global Double recycle_increment;
+global Double reuse_increment;
+
+rule "reduceReport action"
+when
+	Action ($id : id == "reduceReport")
+	InputData($reduceCoinGained : data["reduceCoin"] != null)
+	Game( $gameId: id)
+	Player($playerId : id) 
+	$reduceCoin : PointConcept( name == "reduceCoin")
+	$totalReduce : PointConcept(name == "totalReduce")
+then
+	
+	$reduceCoin.setScore($reduceCoin.getScore() + (Double) $reduceCoinGained);
+	$totalReduce.setScore($totalReduce.getScore() + (Double) $reduceCoinGained);
+	
+	update($reduceCoin)
+	update($totalReduce)
+	insert(new UpdateTeams());
+	utils.log('reduceReport rule executed');
+end
+
+rule "itemDelivery action"
+when
+	Action ($id : id == "itemDelivery")
+	InputData( 
+	          $isWeee : data["weee"] != null,
+	          $weight : data["weight"] != null,
+	          $plastic : data["plastic"] != null,
+	          $glass : data["glass"] != null,
+	          $iron : data["iron"] != null,
+	          $aluminium : data["aluminium"] != null,
+	          $copper : data["copper"] != null,
+	          $tin : data["tin"] != null,
+	          $nickel : data["nickel"] != null,
+	          $silver : data["silver"] != null,
+	          $gold : data["gold"] != null,
+	          $platinum : data["platinum"] != null
+	          )
+	Game( $gameId: id)
+	Player($playerId : id) 
+
+	$totalItems : PointConcept(name == "totalItems")
+	$reuseCoin : PointConcept(name == "reuseCoin")
+	$totalReuse : PointConcept(name == "totalReuse")
+    $recycleCoin : PointConcept(name == "recycleCoin")
+    $totalRecycle : PointConcept(name == "totalRecycle") 
+	
+	$weightCounter : PointConcept(name == "weight")
+	$plasticCounter : PointConcept(name == "plastic")
+	$glassCounter : PointConcept(name == "glass")
+	$ironCounter : PointConcept(name == "iron")
+	$aluminiumCounter : PointConcept(name == "aluminium")
+	$copperCounter : PointConcept(name == "copper")
+	$tinCounter : PointConcept(name == "tin")
+	$nickelCounter : PointConcept(name == "nickel")
+	$silverCounter : PointConcept(name == "silver")
+	$goldCounter : PointConcept(name == "gold")
+	$platinumCounter : PointConcept(name == "platinum")
+	$co2Counter : PointConcept(name == "CO2")
+then
+	// totalItems
+	$totalItems.setScore($totalItems.getScore() + 1d);
+	
+	// coins
+	if((Boolean) $isWeee) {
+		$recycleCoin.setScore($recycleCoin.getScore() + recycle_increment);
+		$totalRecycle.setScore($totalRecycle.getScore() + recycle_increment);
+	}else {
+		$reuseCoin.setScore($reuseCoin.getScore() + reuse_increment);
+		$totalReuse.setScore($totalReuse.getScore() + reuse_increment);
+	}	
+
+	
+	// collect components
+	$weightCounter.setScore($weightCounter.getScore() + (Double) $weight);
+	$plasticCounter.setScore($plasticCounter.getScore() + (Double) $plastic);
+	$glassCounter.setScore($glassCounter.getScore() + (Double) $glass);
+	$ironCounter.setScore($ironCounter.getScore() + (Double) $iron);
+	$aluminiumCounter.setScore($aluminiumCounter.getScore() + (Double) $aluminium);
+	$copperCounter.setScore($copperCounter.getScore() + (Double) $copper);
+	$tinCounter.setScore($tinCounter.getScore() + (Double) $tin);
+	$nickelCounter.setScore($nickelCounter.getScore() + (Double) $nickel);
+	$silverCounter.setScore($silverCounter.getScore() + (Double) $silver);
+	$goldCounter.setScore($goldCounter.getScore() + (Double) $gold);
+	$platinumCounter.setScore($platinumCounter.getScore() + (Double) $platinum);
+	
+	double co2 = $co2Counter.getScore() + ((Double) $weight * co2_constant);
+	$co2Counter.setScore(co2);
+	insert(new UpdateTeams());
+	utils.log('itemDelivery rule executed');
+end
+
+rule "buildRobot action"
+when
+	Action ($id : id == "buildRobot")
+	InputData($reduceCoin : data["reduceCoin"] != null, 
+	          $reuseCoin : data["reuseCoin"] != null,
+	          $recycleCoin : data["recycleCoin"] != null	          )
+	Game( $gameId: id)
+	Player($playerId : id) 
+
+	$reuseCoinCounter : PointConcept(name == "reuseCoin")
+    $recycleCoinCounter : PointConcept(name == "recycleCoin")
+	$reduceCoinCounter : PointConcept(name == "reduceCoin")
+then
+	
+	double reuseCoinValue = $reuseCoinCounter.getScore() - (Double) $reuseCoin;
+	if(reuseCoinValue >= 0) {
+		$reuseCoinCounter.setScore(reuseCoinValue);
+	} else {
+	    $reuseCoinCounter.setScore(0d);
+		utils.log("ATTENTION try to decrement reuseCoinValue less than zero");
+	}
+	
+	double recycleCoinValue = $recycleCoinCounter.getScore() - (Double) $recycleCoin;
+	if(recycleCoinValue >= 0) {
+		$recycleCoinCounter.setScore(recycleCoinValue);
+	} else {
+		$recycleCoinCounter.setScore(0d);
+		utils.log("ATTENTION try to decrement recycleCoin less than zero");
+	}
+	
+	double reduceCoinValue = $reduceCoinCounter.getScore() - (Double) $reduceCoin;
+	if(reduceCoinValue >= 0) {
+		$reduceCoinCounter.setScore(reduceCoinValue);
+	} else {
+	    $reduceCoinCounter.setScore(0d);
+		utils.log("ATTENTION try to decrement reduceCoin less than zero");
+	}
+	insert(new UpdateTeams());
+	utils.log('buildRobot rule executed');
+end
+

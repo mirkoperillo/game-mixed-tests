@@ -1,0 +1,29 @@
+# insert your constants to use in game rules
+# 
+# SAMPLE USAGE 
+# 
+# constants file
+# var_name = var_value
+# 
+#
+# usage in rule
+# global VALUE_TYPE var_name;
+#
+# supported VALUE_TYPE
+# Integer (i.e. var=1)
+# Double  (i.e. var=2.3)
+# String  (i.e. var=park)
+# java.util.ArrayList (i.e var=park,street,bikestation)
+
+
+login_action_score=5.0
+registration_action_score=50.0
+make_question_action_score=10.0
+answer_question_action_score=20.0
+like_action_score=5.0
+update_description_action_score=15.0
+
+login_count_bonus_1=5
+login_count_bonus_2=10
+login_bonus_1=25.0
+login_bonus_2=60.0
