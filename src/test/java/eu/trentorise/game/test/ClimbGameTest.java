@@ -169,7 +169,9 @@ public class ClimbGameTest extends GameTest {
 
     @Override
     public void analyzeResult() {
-        // TODO Auto-generated method stub
+        assertionPoint(GAME_ID, 1.0, "alunno1", "participation_count");
+        assertionPoint(GAME_ID, 1.0, "classe", "participation_count");
+        assertionPoint(GAME_ID, 1.0, "scuola", "participation_count");
 
     }
 
