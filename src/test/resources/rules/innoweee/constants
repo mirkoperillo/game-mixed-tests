@@ -15,6 +15,6 @@
 # String  (i.e. var=park)
 # java.util.ArrayList (i.e var=park,street,bikestation)
 
-co2_constant=1.105284027
+co2_constant=3.372715
 recycle_increment=1.0
 reuse_increment=1.0

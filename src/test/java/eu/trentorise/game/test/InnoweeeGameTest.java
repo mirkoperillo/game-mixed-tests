@@ -41,12 +41,12 @@ public class InnoweeeGameTest extends GameTest {
 
 
     private PointConcept attachPeriods(PointConcept pc) {
-        pc.addPeriod("r1", date("01/01/2019"), date("15/01/2019"), -1);
-        pc.addPeriod("r2", date("20/01/2019"), date("23/01/2019"), -1);
-        pc.addPeriod("r3", date("23/01/2019"), date("31/01/2019"), -1);
-        pc.addPeriod("r4", date("11/02/2019"), date("20/02/2019"), -1);
-        pc.addPeriod("r5", date("01/03/2019"), date("03/03/2019"), -1);
-        pc.addPeriod("r6", date("04/03/2019"), date("15/03/2019"), -1);
+        pc.addPeriod("R1", date("01/04/2019"), date("02/04/2019"), -1);
+        pc.addPeriod("R2", date("02/04/2019"), date("03/04/2019"), -1);
+        pc.addPeriod("R3", date("03/04/2019"), date("04/04/2019"), -1);
+        pc.addPeriod("R4", date("04/04/2019"), date("05/04/2019"), -1);
+        pc.addPeriod("R5", date("05/04/2019"), date("06/04/2019"), -1);
+        pc.addPeriod("R6", date("06/04/2019"), date("07/04/2019"), -1);
         // pc.addPeriod("R1", new Date(1548975600000L), new Date(1550358000000L), -1);
         // pc.addPeriod("R2", new Date(1550444400000L), new Date(1557007200000L), -1);
         // pc.addPeriod("R3", new Date(1557093600000L), new Date(1557612000000L), -1);
