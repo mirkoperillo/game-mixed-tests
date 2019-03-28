@@ -59,6 +59,7 @@ then
 end
 
 rule "participation update propagation"
+no-loop
 when
 	Member($mode : inputData["mode"] != null, inputData["school-date"] != null)
 	Propagation(action == "participation")

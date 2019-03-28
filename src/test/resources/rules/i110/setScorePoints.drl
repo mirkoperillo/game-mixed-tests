@@ -2,6 +2,7 @@ package eu.trentorise.game.model
 
 
 rule "update green points"
+no-loop
 when
     InputData( $walk : data["walk"])
     $pc : PointConcept(name == "green leaves")
