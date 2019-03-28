@@ -117,11 +117,11 @@ public class ClimbGameTest extends GameTest {
         senzAuto.setVariables(vars);
         gameSrv.saveChallengeModel(GAME_ID, senzAuto);
 
-        String rulesFolderPath =
-                "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Sopramonte/";
-        loadFilesystemRules(GAME_ID, rulesFolderPath, true,
-                Arrays.asList(new ExcludeRuleNameFilter("ChallengeScuolaSenzAuto")));
-
+        loadClasspathRules(GAME_ID,
+                Arrays.asList("rules/climb/calendartrips.drl", "rules/climb/classday.drl",
+                        "rules/climb/classtrips.drl", "rules/climb/constants",
+                        "rules/climb/legsbadges.drl", "rules/climb/pedibus.drl",
+                        "rules/climb/weeklytasks.drl"));
     }
 
     @Override
