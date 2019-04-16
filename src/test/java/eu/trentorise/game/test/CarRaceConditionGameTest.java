@@ -140,11 +140,11 @@ public class CarRaceConditionGameTest extends GameTest {
         defineGameHelper(DOMAIN, GAME, Arrays.asList("NoCarCounterTest", "PlayerCalendarTrip",
                 "ClassWalkTrip", "PedibusKidTrip", "PedibusVolunteerTrip"), concepts);
 
-        try {
-            loadClasspathRules(GAME, "rules/" + GAME);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadClasspathRules(GAME,
+                Arrays.asList("rules/climb/calendartrips.drl", "rules/climb/classday.drl",
+                        "rules/climb/classtrips.drl", "rules/climb/constants",
+                        "rules/climb/legsbadges.drl", "rules/climb/pedibus.drl",
+                        "rules/climb/weeklytasks.drl"));
 
     }
 
