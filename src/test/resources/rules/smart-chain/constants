@@ -1,0 +1,57 @@
+# insert your constants to use in game rules
+# 
+# SAMPLE USAGE 
+# 
+# constants file
+# var_name = var_value
+# 
+#
+# usage in rule
+# global VALUE_TYPE var_name;
+#
+# supported VALUE_TYPE
+# Integer (i.e. var=1)
+# Double  (i.e. var=2.3)
+# String  (i.e. var=park)
+# java.util.ArrayList (i.e var=park,street,bikestation)
+
+# ###### actions
+
+# territory|culture|sport scores
+
+bringFriend=50.0|0.0|0.0
+completeSurvey=3.0|0.0|0.0
+
+# ###### experiences
+
+# territory|culture|sport scores
+
+centro-documentazione-luserna=0.0|100.0|1.0
+casa-museo-von-prukk=0.0|50.0|0.0
+forte-werk-luserna=0.0|50.0|0.0
+sentiero-cimbro-immaginario=0.0|50.0|66.0
+sentiero-dalle-storie-alla-storia=0.0|50.0|51.0
+sentiero-della-primavera=0.0|10.0|29.0
+sentiero-tracce-orso=0.0|10.0|108.0
+ciclopedonabile-luserna-roana=0.0|10.0|280.0
+base-tuono=0.0|100.0|10.0
+forte-cherle=0.0|50.0|10.0
+forte-dosso-delle-somme=0.0|50.0|45.0
+forte-sommo-alto=0.0|50.0|44.0
+giro-trincee-nosellari=0.0|50.0|23.0
+maso-spilzi=0.0|20.0|0.0
+serrada=0.0|20.0|0.0
+valle-rio-cavallo-roospach=0.0|20.0|0.0
+guardia=0.0|30.0|0.0
+sentiero-dell-acqua=0.0|20.0|22.0
+forra-del-lupo=0.0|20.0|73.0
+antico-mulino-cueli=0.0|20.0|0.0
+avez-del-prinzep=0.0|10.0|10.0
+fattorie-didattiche=0.0|20.0|0.0
+museo-del-miele=0.0|30.0|0.0
+caseificio-altipiani-vezzena=0.0|30.0|0.0
+percorso-respiro-alberi=0.0|30.0|59.0
+lago-lavarone=0.0|20.0|10.0
+giocare-al-parco=0.0|10.0|0.0
+piccoli=0.0|20.0|0.0
+sentiero-delle-sorgenti=0.0|10.0|38.0

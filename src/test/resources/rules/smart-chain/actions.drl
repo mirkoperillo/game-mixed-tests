@@ -1,0 +1,123 @@
+package eu.trentorise.game.model
+import eu.trentorise.game.core.Utility;
+
+global String bringFriend;
+global String completeSurvey;
+
+rule "bring a friend"
+when
+	Action ($id : id == "bring-a-friend")
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_territory : PointConcept( name == "total_territory")
+	$total_culture : PointConcept( name == "total_culture")
+	$total_sport : PointConcept( name == "total_sport")
+	$reward_territory : PointConcept( name == "reward_territory")
+	$reward_culture : PointConcept( name == "reward_culture")
+	$reward_sport : PointConcept( name == "reward_sport")
+	CustomData($components: this["components"])
+then
+	if($components == null) {
+		$components = 1;
+	}
+	double[] scores = extractBonus(bringFriend);
+	$character_territory.setScore($character_territory.getScore() + scores[0]);
+	$character_culture.setScore($character_culture.getScore() + scores[1]);
+	$character_sport.setScore($character_sport.getScore() + scores[2] * (int) $components);
+	update($character_territory);
+	update($character_culture);
+	update($character_sport);
+
+	$total_territory.setScore($total_territory.getScore() + scores[0]);
+	$total_culture.setScore($total_culture.getScore() + scores[1]);
+	$total_sport.setScore($total_sport.getScore() + scores[2] * (int) $components);
+	$reward_territory.setScore($reward_territory.getScore() + scores[0]);
+	$reward_culture.setScore($reward_culture.getScore() + scores[1]);
+	$reward_sport.setScore($reward_sport.getScore() + scores[2] * (int) $components);
+	
+end
+
+rule "complete survey"
+when
+	Action ($id : id == "complete-survey")
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_territory : PointConcept( name == "total_territory")
+	$total_culture : PointConcept( name == "total_culture")
+	$total_sport : PointConcept( name == "total_sport")
+	$reward_territory : PointConcept( name == "reward_territory")
+	$reward_culture : PointConcept( name == "reward_culture")
+	$reward_sport : PointConcept( name == "reward_sport")
+	CustomData($components: this["components"])
+then
+	if($components == null) {
+		$components = 1;
+	}
+	double[] scores = extractBonus(completeSurvey);
+	$character_territory.setScore($character_territory.getScore() + scores[0]);
+	$character_culture.setScore($character_culture.getScore() + scores[1]);
+	$character_sport.setScore($character_sport.getScore() + scores[2] * (int) $components);
+	update($character_territory);
+	update($character_culture);
+	update($character_sport);
+	
+	$total_territory.setScore($total_territory.getScore() + scores[0]);
+	$total_culture.setScore($total_culture.getScore() + scores[1]);
+	$total_sport.setScore($total_sport.getScore() + scores[2] * (int) $components);
+	$reward_territory.setScore($reward_territory.getScore() + scores[0]);
+	$reward_culture.setScore($reward_culture.getScore() + scores[1]);
+	$reward_sport.setScore($reward_sport.getScore() + scores[2] * (int) $components);
+	
+end
+
+rule "spend another night"
+when
+	Action ($id : id == "spend-another-night")
+	InputData($value : data["value"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$total_territory : PointConcept( name == "total_territory")
+	$reward_territory : PointConcept( name == "reward_territory")
+then
+	double bonus = ((double) $value/100) * 7 * 2;
+	$character_territory.setScore($character_territory.getScore() + bonus);
+	update($character_territory)
+	
+	$total_territory.setScore($total_territory.getScore() + bonus);
+	$reward_territory.setScore($reward_territory.getScore() + bonus);
+	
+end
+
+rule "spend 50 euro"
+when
+	Action ($id : id == "spend-50")
+	InputData($value : data["value"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$total_territory : PointConcept( name == "total_territory")
+	$reward_territory : PointConcept( name == "reward_territory")
+then
+	double bonus = ((double) $value/100) * 7 * 2;
+	$character_territory.setScore($character_territory.getScore() + bonus);
+	update($character_territory)
+	
+	$total_territory.setScore($total_territory.getScore() + bonus);
+	$reward_territory.setScore($reward_territory.getScore() + bonus);
+	
+end
+
+rule "use public transportation"
+when
+	Action ($id : id == "use-public-transportation")
+	InputData($value : data["distanceKm"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$total_territory : PointConcept( name == "total_territory")
+	$reward_territory : PointConcept( name == "reward_territory")
+then
+	double bonus = ((double) $value) * 0.1;
+	$character_territory.setScore($character_territory.getScore() + bonus);
+	update($character_territory)
+	
+	$total_territory.setScore($total_territory.getScore() + bonus);
+	$reward_territory.setScore($reward_territory.getScore() + bonus);
+end

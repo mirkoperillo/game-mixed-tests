@@ -1,0 +1,221 @@
+package eu.trentorise.game.model
+import eu.trentorise.game.core.Utility;
+
+rule "consume basilisco"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'basilisco', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_sport : PointConcept( name == "total_sport")
+	$reward_sport : PointConcept( name == "reward_sport")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed basilisco: sport + 10');
+		$character_sport.setScore($character_sport.getScore() + 10.0);
+		$total_sport.setScore($total_sport.getScore() + 10.0);
+		$reward_sport.setScore($reward_sport.getScore() + 10.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+rule "consume orso"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'orso', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_culture : PointConcept( name == "total_culture")
+	$reward_culture : PointConcept( name == "reward_culture")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed orso: culture + 10');
+		$character_culture.setScore($character_culture.getScore() + 10.0);
+		$total_culture.setScore($total_culture.getScore() + 10.0);
+		$reward_culture.setScore($reward_culture.getScore() + 10.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+
+rule "consume lupo"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'lupo', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_territory : PointConcept( name == "total_territory")
+	$reward_territory : PointConcept( name == "reward_territory")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed lupo: territory + 10');
+		$character_territory.setScore($character_territory.getScore() + 10.0);
+		$total_territory.setScore($total_territory.getScore() + 10.0);
+		$reward_territory.setScore($reward_territory.getScore() + 10.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+
+rule "consume frau pertega"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'frau-pertega', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_culture : PointConcept( name == "total_culture")
+	$reward_culture : PointConcept( name == "reward_culture")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed frau pertega: culture * 2');
+		$character_culture.setScore($character_culture.getScore() * 2.0);
+		$total_culture.setScore($total_culture.getScore() * 2.0);
+		$reward_culture.setScore($reward_culture.getScore() * 2.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+rule "consume boscaiolo"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'boscaiolo', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_sport : PointConcept( name == "total_sport")
+	$reward_sport : PointConcept( name == "reward_sport")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed boscaiolo: sport + 20');
+		$character_sport.setScore($character_sport.getScore() + 20.0);
+		$total_sport.setScore($total_sport.getScore() + 20.0);
+		$reward_sport.setScore($reward_sport.getScore() + 20.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+rule "consume streghetta perti"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'streghetta-perti', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_culture : PointConcept( name == "total_culture")
+	$reward_culture : PointConcept( name == "reward_culture")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed streghetta perti: culture + 20');
+		$character_culture.setScore($character_culture.getScore() + 20.0);
+		$total_culture.setScore($total_culture.getScore() + 20.0);
+		$reward_culture.setScore($reward_culture.getScore() + 20.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
+
+rule "consume tusele marusele"
+when
+	Action ($id : id == "consume-character")
+	InputData (data["character"] == 'tusele-marusele', $character_territoryConsume : data["territory"] != null, $character_cultureConsume : data["culture"] != null, $character_sportConsume : data["sport"] != null)
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_territory : PointConcept( name == "total_territory")
+	$reward_territory : PointConcept( name == "reward_territory")
+then
+	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
+	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
+	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
+	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+		$character_territory.setScore(territoryRest);
+		$character_culture.setScore(cultureRest);
+		$character_sport.setScore(sportRest);
+		
+		utils.log('consumed tusele marusele: territory + 20');
+		$character_territory.setScore($character_territory.getScore() + 20.0);
+		$total_territory.setScore($total_territory.getScore() + 20.0);
+		$reward_territory.setScore($reward_territory.getScore() + 20.0);
+		
+		update($character_territory);
+		update($character_culture);
+		update($character_sport);
+	} else {
+		utils.log("WARNING player doesn't have enough scores to consume character");
+	}
+end
