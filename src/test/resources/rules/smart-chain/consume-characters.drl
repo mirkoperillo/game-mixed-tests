@@ -27,6 +27,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_sport);
+		update($reward_sport);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -58,6 +60,9 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_culture);
+		update($reward_culture);
+		
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -90,6 +95,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_territory);
+		update($reward_territory);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -122,6 +129,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_culture);
+		update($reward_culture);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -153,6 +162,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_sport);
+		update($reward_sport);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -184,6 +195,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_culture);
+		update($reward_culture);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
@@ -215,6 +228,8 @@ then
 		update($character_territory);
 		update($character_culture);
 		update($character_sport);
+		update($total_territory);
+		update($reward_territory);
 	} else {
 		utils.log("WARNING player doesn't have enough scores to consume character");
 	}
