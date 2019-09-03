@@ -11,3 +11,16 @@ function double[] extractBonus(String source) {
 	
 	return scores;
 } 
+
+
+function String totalPrefix(String name) {
+	return "total_"+name;
+}
+
+function String characterPrefix(String name) {
+	return "character_"+name;
+}
+
+function String rewardPrefix(String name) {
+	return "reward_"+name;
+}

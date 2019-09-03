@@ -1,0 +1,27 @@
+package eu.trentorise.game.model
+import eu.trentorise.game.core.Utility;
+
+global Utility utils;
+
+rule 'challenge'
+	salience -2000
+when
+	$challenge : ChallengeConcept( modelName == "absoluteIncrement", $counter: fields["counterName"], $target: fields["target"], $bonusPointType : fields["bonusPointType"], $bonusScore : fields["bonusScore"], isCompleted() != true )
+	$conditionPointConcept : PointConcept(name == totalPrefix((String) $counter), $score : score, score >= $target)
+	$bonusPointConcept1 : PointConcept(name == totalPrefix((String) $bonusPointType))
+	$bonusPointConcept2 : PointConcept(name == characterPrefix((String) $bonusPointType))
+	$bonusPointConcept3 : PointConcept(name == rewardPrefix((String) $bonusPointType))
+then
+	utils.log('challenge absoluteIncrement COMPLETED');
+	$challenge.completed();
+	double score = (Double)$bonusScore;
+	
+	$bonusPointConcept1.setScore($bonusPointConcept1.getScore() + score);
+	$bonusPointConcept2.setScore($bonusPointConcept2.getScore() + score);
+	$bonusPointConcept3.setScore($bonusPointConcept3.getScore() + score);
+	
+	update($bonusPointConcept1);
+	update($bonusPointConcept2);
+	update($bonusPointConcept3);
+	update($challenge);
+end

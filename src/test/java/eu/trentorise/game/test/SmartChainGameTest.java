@@ -14,9 +14,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import eu.trentorise.game.model.ChallengeModel;
 import eu.trentorise.game.model.CustomData;
 import eu.trentorise.game.model.PointConcept;
 import eu.trentorise.game.model.core.GameConcept;
+import eu.trentorise.game.services.GameService;
 import eu.trentorise.game.services.PlayerService;
 
 public class SmartChainGameTest extends GameTest {
@@ -30,6 +32,9 @@ public class SmartChainGameTest extends GameTest {
     @Autowired
     private MongoTemplate mongo;
 
+    @Autowired
+    private GameService gameSrv;
+
     @Override
     public void initEnv() {
 
@@ -42,6 +47,16 @@ public class SmartChainGameTest extends GameTest {
         PointConcept sport = new PointConcept("character_sport");
         sport.setScore(100d);
         savePlayerState(GAME_ID, "eddie", Arrays.asList(territory, culture, sport), customData);
+
+        // assign a challenge to PLAYER
+        // Map<String, Object> data = new HashMap<>();
+        // data.put("counterName", "culture");
+        // data.put("target", 500.0);
+        // data.put("bonusPointType", "culture");
+        // data.put("bonusScore", 20.0);
+        // ChallengeAssignment challenge = new ChallengeAssignment("absoluteIncrement",
+        // "overnightInstance", data, "assigned", null, null);
+        // playerSrv.assignChallenge(GAME_ID, "eddie", challenge);
     }
 
 
@@ -86,6 +101,15 @@ public class SmartChainGameTest extends GameTest {
             e.printStackTrace();
         }
 
+        // define challenge models
+        ChallengeModel model = new ChallengeModel();
+        model.setName("absoluteIncrement");
+        model.getVariables().add("counterName");
+        model.getVariables().add("target");
+        model.getVariables().add("bonusPointType");
+        model.getVariables().add("bonusScore");
+        gameSrv.saveChallengeModel(GAME_ID, model);
+
     }
 
     @Override
@@ -93,7 +117,11 @@ public class SmartChainGameTest extends GameTest {
         Map<String, Object> data = null;
         ExecData action = null;
 
-        action = new ExecData(GAME_ID, "bring-a-friend", "eddie", null);
+        // action = new ExecData(GAME_ID, "bring-a-friend", "eddie", null);
+
+        // data = new HashMap<>();
+        // data.put("value", 60.0);
+        // action = new ExecData(GAME_ID, "spend-another-night", "eddie", data);
 
         // action = new ExecData(GAME_ID, "complete-survey", "eddie", null);
 
@@ -101,16 +129,16 @@ public class SmartChainGameTest extends GameTest {
         // data.put("value", 100.0);
         // action = new ExecData(GAME_ID, "spend-another-night", "eddie", data);
 
-        // data = new HashMap<>();
-        // data.put("name", "centro-documentazione-luserna");
-        // action = new ExecData(GAME_ID, "experience", "eddie", data);
-
         data = new HashMap<>();
-        data.put("territory", 50d);
-        data.put("culture", 5d);
-        data.put("sport", 5d);
-        data.put("character", "lupo");
-        action = new ExecData(GAME_ID, "consume-character", "eddie", data);
+        data.put("name", "centro-documentazione-luserna");
+        action = new ExecData(GAME_ID, "experience", "eddie", data);
+        //
+        // data = new HashMap<>();
+        // data.put("territory", 50d);
+        // data.put("culture", 5d);
+        // data.put("sport", 5d);
+        // data.put("character", "lupo");
+        // action = new ExecData(GAME_ID, "consume-character", "eddie", data);
 
         // data = new HashMap<>();
         // data.put("distanceKm", 5.0);

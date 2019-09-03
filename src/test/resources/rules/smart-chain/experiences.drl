@@ -34,7 +34,15 @@ then
 	$total_territory.setScore($total_territory.getScore() + scores[0]);
 	$total_culture.setScore($total_culture.getScore() + scores[1]);
 	$total_sport.setScore($total_sport.getScore() + scores[2] * (int) $components);
+	update($total_territory);
+	update($total_culture);
+	update($total_sport);
+	
 	$reward_territory.setScore($reward_territory.getScore() + scores[0]);
 	$reward_culture.setScore($reward_culture.getScore() + scores[1]);
 	$reward_sport.setScore($reward_sport.getScore() + scores[2] * (int) $components);
+	update($reward_territory);
+	update($reward_culture);
+	update($reward_sport);
+	
 end

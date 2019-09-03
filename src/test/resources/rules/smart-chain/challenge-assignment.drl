@@ -1,0 +1,31 @@
+package eu.trentorise.game.model
+import eu.trentorise.game.core.Utility;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
+import eu.trentorise.game.model.ChallengeConcept.ChallengeState;
+
+global Utility utils;
+
+rule 'assign challenge'
+	salience -5000
+when
+	not ChallengeConcept( modelName == "absoluteIncrement")
+	$conditionPointConcept : PointConcept(name == 'total_territory', $score : score, score >= 0.0 && score <= 50.0)
+then
+	utils.log('assign a challenge');
+	ChallengeConcept challenge = new ChallengeConcept(ChallengeState.ASSIGNED);
+	Map<String,Object> data = new HashMap<>();
+	data.put("counterName", "territory");
+	data.put("target", 100.0);
+	data.put("bonusPointType", "territory");
+	data.put("bonusScore", 50.0);
+	
+	challenge.setModelName("absoluteIncrement");
+    challenge.setFields(data);
+    challenge.setStart(null);
+    challenge.setEnd(null);
+    challenge.setName(UUID.randomUUID().toString());
+	insert(challenge);	
+
+end
