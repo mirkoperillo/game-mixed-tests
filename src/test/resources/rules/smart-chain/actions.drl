@@ -3,6 +3,51 @@ import eu.trentorise.game.core.Utility;
 
 global String bringFriend;
 global String completeSurvey;
+global String pranzoLusernarhoff;
+
+
+rule "pranzo lusernarhoff"
+when
+	Action ($id : id == "pranzo-lusernarhoff")
+	$character_territory : PointConcept( name == "character_territory")
+	$character_culture : PointConcept( name == "character_culture")
+	$character_sport : PointConcept( name == "character_sport")
+	$total_territory : PointConcept( name == "total_territory")
+	$total_culture : PointConcept( name == "total_culture")
+	$total_sport : PointConcept( name == "total_sport")
+	$reward_territory : PointConcept( name == "reward_territory")
+	$reward_culture : PointConcept( name == "reward_culture")
+	$reward_sport : PointConcept( name == "reward_sport")
+	CustomData($components: this["components"])
+then
+	if($components == null) {
+		$components = 1;
+	}
+	double[] scores = extractBonus(pranzoLusernarhoff);
+	$character_territory.setScore($character_territory.getScore() + scores[0]);
+	$character_culture.setScore($character_culture.getScore() + scores[1]);
+	$character_sport.setScore($character_sport.getScore() + scores[2] * (int) $components);
+	update($character_territory);
+	update($character_culture);
+	update($character_sport);
+
+	$total_territory.setScore($total_territory.getScore() + scores[0]);
+	$total_culture.setScore($total_culture.getScore() + scores[1]);
+	$total_sport.setScore($total_sport.getScore() + scores[2] * (int) $components);
+	update($total_territory);
+	update($total_culture);
+	update($total_sport);
+	
+	$reward_territory.setScore($reward_territory.getScore() + scores[0]);
+	$reward_culture.setScore($reward_culture.getScore() + scores[1]);
+	$reward_sport.setScore($reward_sport.getScore() + scores[2] * (int) $components);
+	update($reward_territory);
+	update($reward_culture);
+	update($reward_sport);
+	
+end
+
+
 
 rule "bring a friend"
 when

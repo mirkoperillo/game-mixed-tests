@@ -21,17 +21,19 @@
 
 bringFriend=50.0|0.0|0.0
 completeSurvey=3.0|0.0|0.0
+pranzoLusernarhoff=50.0|0.0|0.0
 
 # ###### experiences
 
 # territory|culture|sport scores
 
 centro-documentazione-luserna=0.0|100.0|1.0
-casa-museo-von-prukk=0.0|50.0|0.0
+casa-museo-haus-von-prukk=0.0|50.0|0.0
 forte-werk-luserna=0.0|50.0|0.0
-sentiero-cimbro-immaginario=0.0|50.0|66.0
+sentiero-cimbro-dell-Immaginario=0.0|50.0|66.0
 sentiero-dalle-storie-alla-storia=0.0|50.0|51.0
 sentiero-della-primavera=0.0|10.0|29.0
+
 sentiero-tracce-orso=0.0|10.0|108.0
 ciclopedonabile-luserna-roana=0.0|10.0|280.0
 base-tuono=0.0|100.0|10.0

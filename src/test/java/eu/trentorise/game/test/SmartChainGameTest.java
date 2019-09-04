@@ -77,6 +77,7 @@ public class SmartChainGameTest extends GameTest {
         mongo.getDb().drop();
 
         List<String> actions = Arrays.asList("bring-a-friend", "complete-survey",
+                "pranzo-lusernarhoff",
                 "spend-another-night", "spend-50", "use-public-transportation", "experience",
                 "consume-character", "consume-reward");
 
