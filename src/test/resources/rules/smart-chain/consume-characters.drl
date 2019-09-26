@@ -14,7 +14,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -47,7 +47,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -82,7 +82,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -116,7 +116,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -149,7 +149,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -182,7 +182,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);
@@ -215,7 +215,7 @@ then
 	double territoryRest = $character_territory.getScore() - (double) $character_territoryConsume;
 	double cultureRest = $character_culture.getScore() - (double) $character_cultureConsume;
 	double sportRest = $character_sport.getScore() - (double) $character_sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$character_territory.setScore(territoryRest);
 		$character_culture.setScore(cultureRest);
 		$character_sport.setScore(sportRest);

@@ -12,7 +12,7 @@ then
 	double territoryRest = $reward_territory.getScore() - (double) $territoryConsume;
 	double cultureRest = $reward_culture.getScore() - (double) $cultureConsume;
 	double sportRest = $reward_sport.getScore() - (double) $sportConsume;
-	if(territoryRest > 0 && cultureRest > 0 && sportRest > 0) {
+	if(territoryRest >= 0 && cultureRest >= 0 && sportRest >= 0) {
 		$reward_territory.setScore(territoryRest);
 		$reward_culture.setScore(cultureRest);
 		$reward_sport.setScore(sportRest);
