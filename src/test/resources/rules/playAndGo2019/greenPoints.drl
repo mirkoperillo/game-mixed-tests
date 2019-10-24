@@ -1,0 +1,197 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.core.Utility;
+import eu.trentorise.game.notification.MessageNotification;
+import java.lang.Math;
+
+global Utility utils;
+
+// global Double green_walk_points;
+// global Double green_bike_points;
+global Double green_transit_points;
+global Double park_and_ride_points;
+global Double recommendation_bonus;
+// global Double green_bus_points_base;
+// global Double green_bus_points_step0;
+// global Double green_bus_points_step1;
+// global Double green_bus_points_step2;
+// global Double green_bus_points_step3;
+// global Double zero_impact_booster;
+
+// global Double bus_threshold_step0;
+// global Double bus_threshold_step1;
+// global Double bus_threshold_step2;
+// global Double bus_threshold_step3;
+// global Double walk_min;
+// global Double walk_daily_max;
+// global Double bike_daily_max;
+// global Double pt_daily_max;
+global Double transit_daily_max;
+global java.util.ArrayList parkings;
+
+function double getModePoint(String mode) {
+	switch(mode) {
+		case 'Walk':
+			return 15.0;
+		case 'Bike':
+			return 7.5;
+		case 'Bus':
+			return 5.0;
+		case 'Train':
+			return 5.0;
+		default:
+			return 0.0;	
+	}	
+}
+
+function double getModeLimit(String mode) {
+	switch(mode) {
+		case 'Walk':
+			return 10.0;
+		case 'Bike':
+			return 20.0;
+		case 'Bus':
+			return 30.0;
+		case 'Train':
+			return 30.0;
+		default:
+			return 0.0;	
+	}	
+}
+
+function double getScore(String mode, double distance) {
+    double point = getModePoint(mode);
+    double limit = getModeLimit(mode);
+    double score = 0.0;
+    int index = 0;
+  	while(index < 8) {
+  		limit /= 2;
+  		score += Math.min(distance, limit) * point;
+        distance -= limit;
+        point /= 2;
+        if (distance < 0) {
+            break;
+        }
+        index++;
+  	}
+    return score;
+}
+
+function double tripScore(double modeDaily, double tripDistance, String mode) {
+	double beforeTripDistance = modeDaily - tripDistance;
+	double oldModeDailyScore = getScore(mode, beforeTripDistance);
+	double newModeDailyScore = getScore(mode, modeDaily);
+	double gainedScore = newModeDailyScore - oldModeDailyScore;
+	return gainedScore; 
+}
+
+/*
+Use salience because this rule should be triggered after mode-counters update.
+*/
+
+rule "all modes - update green points"
+salience -500
+when
+	Action ($id : id == "save_itinerary")
+	InputData($travelId : data["travelId"], $bike : data["bikeDistance"], $walk : data["walkDistance"], $bus : data["busDistance"], 
+		$cable : data["transitDistance"], $train : data["trainDistance"], $car : data["carDistance"], $park : data["park"])
+	Game( $gameId: id)
+	Player($playerId : id) 
+	$pc : PointConcept( name == "green leaves")
+	$walkKm : PointConcept(name == "Walk_Km")
+	$bikeKm : PointConcept(name == "Bike_Km")
+	$busKm : PointConcept(name == "Bus_Km")
+	$trainKm : PointConcept(name == "Train_Km")
+	$transitTrips : PointConcept(name == "Transit_Trips")
+	$trainTrips : PointConcept(name == "Train_Trips")
+	$busTrips : PointConcept(name == "Bus_Trips")
+then
+	utils.log("all modes - update green points");
+	
+	double score = 0.0;
+	
+	//handling of walking Km points
+	if($walk != null) {
+		utils.log("rule \'all modes - update green points\': counting Walking Km green points");
+		double modeDaily = $walkKm.getPeriodCurrentScore("daily");
+		double gainedScore = tripScore(modeDaily, (double) $walk, "Walk");
+		utils.log("daily Km: " + modeDaily);
+		score += gainedScore;
+		
+	}
+	
+	//handling of bike Km points
+	if($bike != null) {
+		utils.log("rule \'all modes - update green points\': counting Bike Km green points");
+		double modeDaily = $bikeKm.getPeriodCurrentScore("daily");
+		double gainedScore = tripScore(modeDaily, (double) $bike, "Bike");
+		utils.log("daily Km: " + modeDaily);
+		score += gainedScore;
+	}
+	
+	//handling of P&R points
+	if($park != null && parkings.contains((String)$park)) {
+		utils.log("rule \'all modes - update green points\': counting P&R green points");
+		score = score + park_and_ride_points;
+	}
+	
+	//handling of cable/transit points
+	if($cable!=null) {
+		Double transitDaily = $transitTrips.getPeriodCurrentScore("daily");
+		utils.log("rule \'all modes - update green points\': counting Cable-Transit green points");
+		if (transitDaily < transit_daily_max) {
+			score = score + green_transit_points;
+		}
+		else {
+			utils.log("rule \'all modes - update green points\': Reached daily limit for transit trips (cable)");
+		}
+	}
+	
+	
+	//handling of bus Km points
+	if($bus != null) {
+		utils.log("rule \'all modes - update green points\': counting Bus Km green points");
+		double modeDaily = $busKm.getPeriodCurrentScore("daily");
+		double gainedScore = tripScore(modeDaily, (double) $bus, "Bus");
+		utils.log("daily Km: " + modeDaily);
+		score += gainedScore;
+	}
+	
+	
+	//handling of train Km points
+	if($train != null) {
+		utils.log("rule \'all modes - update green points\': counting Train Km green points");
+		double modeDaily = $trainKm.getPeriodCurrentScore("daily");
+		double gainedScore = tripScore(modeDaily, (double) $train, "Train");
+		utils.log("daily Km: " + modeDaily);
+		score += gainedScore;
+	}
+	
+	score = (Double) Math.rint(score);
+	
+	
+	MessageNotification mn = new MessageNotification($gameId,$playerId,null);
+	mn.addData("travelId", $travelId);
+	mn.addData("score", score);
+	insert(mn);
+	
+	utils.log("calcultated score: " + score );
+	if(score > 0.0) {
+		$pc.setScore($pc.getScore() + score);
+		update($pc);
+	} else {
+		utils.log("No score to update");
+	}
+end
+
+
+rule "recommendation bonus"
+	salience 1
+when
+	Action ($id : id == "app_sent_recommandation")
+    $pc : PointConcept(name == "green leaves")
+then
+	utils.log("apply \'recommendation bonus\'");
+	$pc.setScore($pc.getScore() + recommendation_bonus);
+    update($pc); 
+end
