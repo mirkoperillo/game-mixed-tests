@@ -52,20 +52,20 @@ public class RepetitiveBehaviourChallengeInTimeTest extends GameTest {
 
     @Override
     public void initEnv() {
-        PointConceptStateHelper h = helperFactory.instanceOf(GAME, "Train_Trips");
-        h.setScoreInTime(parseFromString("2018-01-26"), 2d);
-        h.setScoreInTime(parseFromString("2018-01-29"), 4d);
-        h.setScoreInTime(parseFromString("2018-01-30"), 6d);
+        PointConceptStateHelper h = helperFactory.instanceOf(GAME, "green leaves");
+        h.setScoreInTime(parseFromString("2018-01-26"), 1d);
+        h.setScoreInTime(parseFromString("2018-01-29"), 31d);
+        h.setScoreInTime(parseFromString("2018-01-30"), 60d);
 
         savePlayerState(GAME, PLAYER, Arrays.asList(h.build()));
 
         // assign a challenge to PLAYER
         Map<String, Object> data = new HashMap<String, Object>();
-        data.put("target", 2d);
-        data.put("counterName", "Train_Trips");
+        data.put("target", 20d);
+        data.put("counterName", "green leaves");
         data.put("periodName", "daily");
-        data.put("periodTarget", 3d);
-        data.put("bonusScore", 400d);
+        data.put("periodTarget", 2d);
+        data.put("bonusScore", 100d);
         data.put("bonusPointType", "green leaves");
         ChallengeAssignment challenge = new ChallengeAssignment("repetitiveBehaviour",
                 "repetitiveBehaviourInstance", data, "assigned",
@@ -130,11 +130,11 @@ public class RepetitiveBehaviourChallengeInTimeTest extends GameTest {
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = new HashMap<>();
         data.put("trainDistance", 20d);
-        execList.add(new ExecData(GAME, ACTION, PLAYER, data));
+        execList.add(new ExecData(GAME, ACTION, PLAYER, data, parseFromString("2018-01-31")));
 
-        data = new HashMap<>();
-        data.put("trainDistance", 40d);
-        execList.add(new ExecData(GAME, ACTION, PLAYER, data));
+        // data = new HashMap<>();
+        // data.put("trainDistance", 40d);
+        // execList.add(new ExecData(GAME, ACTION, PLAYER, data));
     }
 
 
