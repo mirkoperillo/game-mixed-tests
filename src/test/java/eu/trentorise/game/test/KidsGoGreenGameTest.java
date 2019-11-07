@@ -89,9 +89,9 @@ public class KidsGoGreenGameTest extends GameTest {
         defineGameHelper(null, GAME_ID, actions, concepts);
 
 
-        String rulesFolderPath =
-                "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Schmid-2A-B-C/";
-        loadFilesystemRules(GAME_ID, rulesFolderPath, false);
+        // String rulesFolderPath =
+        // "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Schmid-2A-B-C/";
+        // loadFilesystemRules(GAME_ID, rulesFolderPath, false);
 
     }
 
