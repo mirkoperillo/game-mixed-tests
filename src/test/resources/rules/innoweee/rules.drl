@@ -135,4 +135,3 @@ then
 	insert(new UpdateTeams());
 	utils.log('buildRobot rule executed');
 end
-

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import eu.trentorise.game.model.PointConcept;
+import eu.trentorise.game.model.PointConceptStateHelperFactory;
+import eu.trentorise.game.model.PointConceptStateHelperFactory.PointConceptStateHelper;
 import eu.trentorise.game.model.TeamState;
 import eu.trentorise.game.model.core.GameConcept;
 import eu.trentorise.game.services.PlayerService;
@@ -30,6 +32,9 @@ public class InnoweeeGameTest extends GameTest {
     @Autowired
     private MongoTemplate mongo;
 
+    @Autowired
+    private PointConceptStateHelperFactory helperFactory;
+
     @Override
     public void initEnv() {
         TeamState team = new TeamState(GAME_ID, "scuola");
@@ -37,6 +42,35 @@ public class InnoweeeGameTest extends GameTest {
         team.setMembers(Arrays.asList("classe"));
         playerSrv.saveTeam(team);
 
+        List<GameConcept> scores = new ArrayList<>();
+
+        PointConceptStateHelper h = helperFactory.instanceOf(GAME_ID, "reduceCoin");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "totalReduce");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "totalReduce");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "reuseCoin");
+        h.setScoreInTime(new Date(), 1d);
+        scores.add(h.build());
+        h = helperFactory.instanceOf(GAME_ID, "totalReuse");
+        h.setScoreInTime(new Date(), 1d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "recycleCoin");
+        h.setScoreInTime(new Date(), 5d);
+        scores.add(h.build());
+        h = helperFactory.instanceOf(GAME_ID, "totalRecycle");
+        h.setScoreInTime(new Date(), 5d);
+        scores.add(h.build());
+
+        savePlayerState(GAME_ID, "classe", scores);
     }
 
 
@@ -71,7 +105,8 @@ public class InnoweeeGameTest extends GameTest {
 
         mongo.getDb().drop();
 
-        List<String> actions = Arrays.asList("itemDelivery", "reduceReport", "buildRobot");
+        List<String> actions =
+                Arrays.asList("itemDelivery", "reduceReport", "buildRobot", "donation");
 
         List<GameConcept> concepts = new ArrayList<>();
 
@@ -99,6 +134,12 @@ public class InnoweeeGameTest extends GameTest {
     @Override
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = null;
+        data = new HashMap<String, Object>();
+        data.put("reduceCoin", 0d);
+        data.put("reuseCoin", -10d);
+        data.put("recycleCoin", 5d);
+        ExecData build = new ExecData(GAME_ID, "donation", "classe", data);
+        execList.add(build);
 
         // Date dateR2 = date("22/01/2019");
         // data = new HashMap<String, Object>();
@@ -115,20 +156,20 @@ public class InnoweeeGameTest extends GameTest {
         // execList.add(reduceReport);
 
 
-        Date dateR3 = date("25/01/2019");
-        data = new HashMap<String, Object>();
-        data.put("weee", false);
-        data.put("weight", 5d);
-        data.put("plastic", 2d);
-        data.put("glass", 1d);
-        data.put("iron", 1d);
-        data.put("aluminium", 3d);
-        data.put("copper", 5d);
-        data.put("tin", 6d);
-        data.put("nickel", 7d);
-        data.put("silver", 8d);
-        data.put("gold", 8d);
-        data.put("platinum", 3d);
+        // Date dateR3 = date("25/01/2019");
+        // data = new HashMap<String, Object>();
+        // data.put("weee", false);
+        // data.put("weight", 5d);
+        // data.put("plastic", 2d);
+        // data.put("glass", 1d);
+        // data.put("iron", 1d);
+        // data.put("aluminium", 3d);
+        // data.put("copper", 5d);
+        // data.put("tin", 6d);
+        // data.put("nickel", 7d);
+        // data.put("silver", 8d);
+        // data.put("gold", 8d);
+        // data.put("platinum", 3d);
         /**
          * ACTUALLY supported only by game-engine on master branch
          */
