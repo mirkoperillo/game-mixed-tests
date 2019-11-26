@@ -47,5 +47,8 @@ public class I110GameTest extends GameTest {
     }
 
     @Override
-    public void analyzeResult() {}
+    public void analyzeResult() {
+        assertionPoint(GAME, 6.0, "macgargan", "green leaves");
+
+    }
 }

@@ -72,6 +72,10 @@ public class PropagateClassificationGameTest extends GameTest {
     }
 
     @Override
-    public void analyzeResult() {}
+    public void analyzeResult() {
+        assertionPoint(GAME, 20d, "alice", "steps");
+        assertionPoint(GAME, 10d, "classroom", "steps");
+        assertionPoint(GAME, 10d, "school", "steps");
+    }
 
 }

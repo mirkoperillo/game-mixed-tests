@@ -2,6 +2,7 @@ package eu.trentorise.game.model
 
 
 rule "sentinel"
+lock-on-active
 when
     $pc : PointConcept(name == "green leaves", $s : score)
 then

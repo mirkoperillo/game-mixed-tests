@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import eu.trentorise.game.model.PointConcept;
+import eu.trentorise.game.model.PointConceptStateHelperFactory;
+import eu.trentorise.game.model.PointConceptStateHelperFactory.PointConceptStateHelper;
 import eu.trentorise.game.model.TeamState;
 import eu.trentorise.game.model.core.GameConcept;
 import eu.trentorise.game.services.PlayerService;
@@ -30,6 +32,9 @@ public class InnoweeeGameTest extends GameTest {
     @Autowired
     private MongoTemplate mongo;
 
+    @Autowired
+    private PointConceptStateHelperFactory helperFactory;
+
     @Override
     public void initEnv() {
         TeamState team = new TeamState(GAME_ID, "scuola");
@@ -37,22 +42,49 @@ public class InnoweeeGameTest extends GameTest {
         team.setMembers(Arrays.asList("classe"));
         playerSrv.saveTeam(team);
 
+        List<GameConcept> scores = new ArrayList<>();
+
+        PointConceptStateHelper h = helperFactory.instanceOf(GAME_ID, "reduceCoin");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "totalReduce");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "totalReduce");
+        h.setScoreInTime(new Date(), 11d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "reuseCoin");
+        h.setScoreInTime(new Date(), 1d);
+        scores.add(h.build());
+        h = helperFactory.instanceOf(GAME_ID, "totalReuse");
+        h.setScoreInTime(new Date(), 1d);
+        scores.add(h.build());
+
+        h = helperFactory.instanceOf(GAME_ID, "recycleCoin");
+        h.setScoreInTime(new Date(), 5d);
+        scores.add(h.build());
+        h = helperFactory.instanceOf(GAME_ID, "totalRecycle");
+        h.setScoreInTime(new Date(), 5d);
+        scores.add(h.build());
+
+        savePlayerState(GAME_ID, "classe", scores);
     }
 
 
     private PointConcept attachPeriods(PointConcept pc) {
-        pc.addPeriod("R1", date("01/04/2019"), date("02/04/2019"), -1);
-        pc.addPeriod("R2", date("02/04/2019"), date("03/04/2019"), -1);
-        pc.addPeriod("R3", date("03/04/2019"), date("04/04/2019"), -1);
-        pc.addPeriod("R4", date("04/04/2019"), date("05/04/2019"), -1);
-        pc.addPeriod("R5", date("05/04/2019"), date("06/04/2019"), -1);
-        pc.addPeriod("R6", date("06/04/2019"), date("07/04/2019"), -1);
-        // pc.addPeriod("R1", new Date(1548975600000L), new Date(1550358000000L), -1);
-        // pc.addPeriod("R2", new Date(1550444400000L), new Date(1557007200000L), -1);
-        // pc.addPeriod("R3", new Date(1557093600000L), new Date(1557612000000L), -1);
-        // pc.addPeriod("R4", new Date(1557698400000L), new Date(1558216800000L), -1);
-        // pc.addPeriod("R5", new Date(1558303200000L), new Date(1558821600000L), -1);
-        // pc.addPeriod("R6", new Date(1558908000000L), new Date(1559426400000L), -1);
+        /**
+         * ACTUALLY this addPeriod signature is supported only by game-engine on master branch
+         */
+        // PROD pc.addPeriod("R1", date("02/12/2019"), date("07/12/2019"), -1);
+        pc.addPeriod("R1", date("19/11/2019"), date("07/12/2019"), -1);
+        pc.addPeriod("R2", date("09/12/2019"), date("14/12/2019"), -1);
+        pc.addPeriod("R3", date("16/12/2019"), date("21/12/2019"), -1);
+        pc.addPeriod("R4", date("07/01/2020"), date("11/01/2020"), -1);
+        pc.addPeriod("R5", date("13/01/2020"), date("18/01/2020"), -1);
+        pc.addPeriod("R6", date("20/01/2020"), date("25/01/2020"), -1);
 
         return pc;
     }
@@ -66,9 +98,10 @@ public class InnoweeeGameTest extends GameTest {
     @Override
     public void defineGame() {
 
-        mongo.getDb().dropDatabase();
+        mongo.getDb().drop();
 
-        List<String> actions = Arrays.asList("itemDelivery", "reduceReport", "buildRobot");
+        List<String> actions =
+                Arrays.asList("itemDelivery", "reduceReport", "buildRobot", "donation");
 
         List<GameConcept> concepts = new ArrayList<>();
 
@@ -96,6 +129,12 @@ public class InnoweeeGameTest extends GameTest {
     @Override
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = null;
+        data = new HashMap<String, Object>();
+        data.put("reduceCoin", 0d);
+        data.put("reuseCoin", -10d);
+        data.put("recycleCoin", 5d);
+        ExecData build = new ExecData(GAME_ID, "donation", "classe", data);
+        execList.add(build);
 
         // Date dateR2 = date("22/01/2019");
         // data = new HashMap<String, Object>();
@@ -112,22 +151,25 @@ public class InnoweeeGameTest extends GameTest {
         // execList.add(reduceReport);
 
 
-        Date dateR3 = date("25/01/2019");
-        data = new HashMap<String, Object>();
-        data.put("weee", false);
-        data.put("weight", 5d);
-        data.put("plastic", 2d);
-        data.put("glass", 1d);
-        data.put("iron", 1d);
-        data.put("aluminium", 3d);
-        data.put("copper", 5d);
-        data.put("tin", 6d);
-        data.put("nickel", 7d);
-        data.put("silver", 8d);
-        data.put("gold", 8d);
-        data.put("platinum", 3d);
-        ExecData itemDelivery = new ExecData(GAME_ID, "itemDelivery", "classe", data, dateR3);
-        execList.add(itemDelivery);
+        // Date dateR3 = date("25/01/2019");
+        // data = new HashMap<String, Object>();
+        // data.put("weee", false);
+        // data.put("weight", 5d);
+        // data.put("plastic", 2d);
+        // data.put("glass", 1d);
+        // data.put("iron", 1d);
+        // data.put("aluminium", 3d);
+        // data.put("copper", 5d);
+        // data.put("tin", 6d);
+        // data.put("nickel", 7d);
+        // data.put("silver", 8d);
+        // data.put("gold", 8d);
+        // data.put("platinum", 3d);
+        /**
+         * ACTUALLY supported only by game-engine on master branch
+         */
+        // ExecData itemDelivery = new ExecData(GAME_ID, "itemDelivery", "classe", data, dateR3);
+        // execList.add(itemDelivery);
 
     }
 

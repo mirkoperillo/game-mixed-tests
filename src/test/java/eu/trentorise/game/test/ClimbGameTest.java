@@ -78,7 +78,7 @@ public class ClimbGameTest extends GameTest {
     @Override
     public void defineGame() {
 
-        mongo.getDb().dropDatabase();
+        mongo.getDb().drop();
 
         List<String> actions = Arrays.asList("PedibusKidTrip", "CalendarDayFilled",
                 "PlayerCalendarTrip", "ClassWalkTrip");
@@ -117,11 +117,11 @@ public class ClimbGameTest extends GameTest {
         senzAuto.setVariables(vars);
         gameSrv.saveChallengeModel(GAME_ID, senzAuto);
 
-        String rulesFolderPath =
-                "/home/mirko/data/git/game-engine-climb.rules/src/main/resources/rules-Sopramonte/";
-        loadFilesystemRules(GAME_ID, rulesFolderPath, true,
-                Arrays.asList(new ExcludeRuleNameFilter("ChallengeScuolaSenzAuto")));
-
+        loadClasspathRules(GAME_ID,
+                Arrays.asList("rules/climb/calendartrips.drl", "rules/climb/classday.drl",
+                        "rules/climb/classtrips.drl", "rules/climb/constants",
+                        "rules/climb/legsbadges.drl", "rules/climb/pedibus.drl",
+                        "rules/climb/weeklytasks.drl"));
     }
 
     @Override
@@ -169,7 +169,9 @@ public class ClimbGameTest extends GameTest {
 
     @Override
     public void analyzeResult() {
-        // TODO Auto-generated method stub
+        assertionPoint(GAME_ID, 1.0, "alunno1", "participation_count");
+        assertionPoint(GAME_ID, 1.0, "classe", "participation_count");
+        assertionPoint(GAME_ID, 1.0, "scuola", "participation_count");
 
     }
 

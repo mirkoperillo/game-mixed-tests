@@ -11,6 +11,7 @@ rule "Zero Impact and No Car Day Notification"
 // in case  a CLASS comes to school with every child (except absent ones)
 // using zero-impact modes
 salience -1000
+no-loop
 when
 	Action(id == "PlayerCalendarTrip") //evaluate only when calendar data are sent
 	Game($gameId: id)
@@ -63,6 +64,7 @@ end
 rule "Zero Impact Day propagation"
 // includes setting of counter of No-Car classs for the day
 salience -1000
+no-loop
 when
 	Propagation(action == "ZeroImpactDay")
 	Member($bonusScore : inputData["bonusScore"])

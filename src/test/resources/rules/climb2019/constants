@@ -1,0 +1,82 @@
+
+# insert your constants to use in game rules
+# 
+# SAMPLE USAGE 
+# 
+# constants file
+# var_name = var_value
+# 
+#
+# usage in rule
+# global VALUE_TYPE var_name;
+#
+# supported VALUE_TYPE
+# Integer (i.e. var=1)
+# Double  (i.e. var=2.3)
+# String  (i.e. var=park)
+# java.util.ArrayList (i.e var=park,street,bikestation)
+
+# bonus for reaching leg (school)
+const_leg_bonus=0.0
+
+# bonus for beating weekly record (as percent)
+const_record_percent_class=0.10
+const_record_percent_school=0.05
+
+# multiplier for pedibus trips
+const_pedibus_multiplier=1.0 
+
+# name of the school team/player
+const_school_name=scuola
+
+# total number of teams (SCHOOL + classes), used in weeklytasks
+const_number_of_teams=4 
+
+# bonus for NoCarDayClass
+const_NoCarDayClass_bonus=1000.0
+
+# bonus for ZeroImpactDayClass
+const_ZeroImpactDayClass_bonus=2000.0
+
+# nominal weekly distance estimated for whole school
+const_weekly_nominal_distance=304500.0
+
+# "almost" distance from next leg (in meters, used in notifications)
+const_almost_reached_next_leg=182700.0
+
+# name of the badge collection for journey stops
+badge_collection_name=LegsCollection
+
+# name of the destination
+final_destination=Bolzano
+
+# constants representing distances to legs 
+Trento_distance=0.0
+Verona_distance=91000.0
+Trieste_distance=132000.0
+Venezia_distance=219000.0
+DeltadelPo_distance=289000.0
+SanMarino_distance=437000.0
+Perugia_distance=566000.0
+GranSasso_distance=766000.0
+Cascatadellemarmore_distance=890000.0
+Tarquinia_distance=999000.0
+Roma_distance=1090000.0
+Napoli_distance=1310000.0
+Matera_distance=1558000.0
+Gallipoli_distance=1718000.0
+RiaceMarina_distance=2190000.0
+Messina_distance=2307000.0
+Trapani_distance=2644000.0
+Cagliari_distance=3000000.0
+Volterra_distance=3620000.0
+Firenze_distance=3689000.0
+Pescia_distance=3746000.0
+Bologna_distance=3863000.0
+Genova_distance=4117000.0
+Torino_distance=4279000.0
+Aosta_distance=4399000.0
+Milano_distance=4586000.0
+Bolzano_distance=4852000.0
+
+const_day_millis=86400000l

@@ -1,0 +1,26 @@
+package eu.trentorise.game.model
+
+function double[] extractBonus(String source) {
+	    String[] scoresAsString = source.split("\\|");
+        double[] scores = new double[scoresAsString.length];
+
+        for (int i = 0; i < scoresAsString.length; i++) {
+            String score = scoresAsString[i];
+            scores[i] = Double.valueOf(score);
+        }
+	
+	return scores;
+} 
+
+
+function String totalPrefix(String name) {
+	return "total_"+name;
+}
+
+function String characterPrefix(String name) {
+	return "character_"+name;
+}
+
+function String rewardPrefix(String name) {
+	return "reward_"+name;
+}

@@ -58,44 +58,6 @@ then
 	}
 end
 
-rule "participation update propagation"
-no-loop
-when
-	Member($mode : inputData["mode"] != null, inputData["school-date"] != null)
-	Propagation(action == "participation")
-    Player($playerId : id, team == true)
-    $part : PointConcept(name == "participation_count")
-then
-	log("apply participation update propagation");
-	// here I make sure I update the participation count for the team in the current day
-	$part.setScore($part.getScore() + 1d);
-	update($part);
-    insert(new UpdateTeams("participation"));
-end
-
-rule "absence update"
-when
-	Action(id == "PlayerCalendarTrip")
-    InputData( $mode : data["mode"] != null, $mode == "absent", $date : data["school-date"] != null)
-    $absence : PointConcept(name == "absence_count")
-then
-	log("apply absence update");
-	$absence.setScore($absence.getScore() + 1d);
-	update($absence)
-    insert(new UpdateTeams());
-end
-
-rule "trip absence update propagation"
-when
-	Member($mode : inputData["mode"] != null, $mode == "absent", inputData["school-date"] != null)
-    Player($playerId : id, team == true)
-    $absence : PointConcept(name == "absence_count")
-then
-	log("apply absence update propagation");
-	$absence.setScore($absence.getScore() + 1d);
-	update($absence)
-    insert(new UpdateTeams());
-end
 
 rule "trip mode update"
 when 
@@ -133,49 +95,6 @@ then
 	
 	Double totalUpdate = distance + meteoBonus;
 	$tot_dist.setScore($tot_dist.getScore() + totalUpdate);  
-    
-    update($bonus_dist);
-    update($mode_dist);
-    update($mode_trips);
-    update($tot_dist);
-    update($tot_trips);
-
-    insert(new UpdateTeams());
-end
-
-
-rule "trip mode update propagation"
-when
-    Member($mode : inputData["mode"] != null, $mode != "absent", $meteo : inputData["meteo"] != null, $date : inputData["school-date"] != null)
-    Player($playerId : id, team == true)
-    $tot_dist : PointConcept(name == "total_distance")
-    $tot_trips : PointConcept(name == "total_trips")
-    $mode_dist : PointConcept(name == (String)$mode + "_distance")
-    $mode_trips : PointConcept(name == (String)$mode + "_trips")
-    $bonus_dist : PointConcept(name == "bonus_distance")
-then
-    log("apply trip mode update propagation");
-	String myMode = (String)$mode;
-	String myMeteo = (String)$meteo;
-	Double meteoBonus = 0.0;
-	Double distance = 0.0;
-	
-	if (myMode.startsWith("zeroImpact") || myMode.equals("pedibus")) {
-		meteoBonus = getMeteoBonus(myMeteo);
-		if (myMode.equals("zeroImpact_solo")) {
-			meteoBonus += const_zi_solo_bonus;
-		}
-		$bonus_dist.setScore($bonus_dist.getScore() + meteoBonus);
-	}
-	if (! myMode.equals("pedibus")) {
-		distance = getDistanceByMode(myMode);
-		$mode_dist.setScore($mode_dist.getScore() + distance);
-		$mode_trips.setScore($mode_trips.getScore() + 1d);
-		$tot_trips.setScore($tot_trips.getScore() + 1d);
-	}
-	
-	Double totalUpdate = distance + meteoBonus;
-	$tot_dist.setScore($tot_dist.getScore() + totalUpdate);
     
     update($bonus_dist);
     update($mode_dist);
