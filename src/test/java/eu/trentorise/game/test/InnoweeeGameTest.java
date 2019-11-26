@@ -78,18 +78,13 @@ public class InnoweeeGameTest extends GameTest {
         /**
          * ACTUALLY this addPeriod signature is supported only by game-engine on master branch
          */
-        // pc.addPeriod("r1", date("01/01/2019"), date("15/01/2019"), -1);
-        // pc.addPeriod("r2", date("20/01/2019"), date("23/01/2019"), -1);
-        // pc.addPeriod("r3", date("23/01/2019"), date("31/01/2019"), -1);
-        // pc.addPeriod("r4", date("11/02/2019"), date("20/02/2019"), -1);
-        // pc.addPeriod("r5", date("01/03/2019"), date("03/03/2019"), -1);
-        // pc.addPeriod("r6", date("04/03/2019"), date("15/03/2019"), -1);
-        // pc.addPeriod("R1", new Date(1548975600000L), new Date(1550358000000L), -1);
-        // pc.addPeriod("R2", new Date(1550444400000L), new Date(1557007200000L), -1);
-        // pc.addPeriod("R3", new Date(1557093600000L), new Date(1557612000000L), -1);
-        // pc.addPeriod("R4", new Date(1557698400000L), new Date(1558216800000L), -1);
-        // pc.addPeriod("R5", new Date(1558303200000L), new Date(1558821600000L), -1);
-        // pc.addPeriod("R6", new Date(1558908000000L), new Date(1559426400000L), -1);
+        // PROD pc.addPeriod("R1", date("02/12/2019"), date("07/12/2019"), -1);
+        pc.addPeriod("R1", date("19/11/2019"), date("07/12/2019"), -1);
+        pc.addPeriod("R2", date("09/12/2019"), date("14/12/2019"), -1);
+        pc.addPeriod("R3", date("16/12/2019"), date("21/12/2019"), -1);
+        pc.addPeriod("R4", date("07/01/2020"), date("11/01/2020"), -1);
+        pc.addPeriod("R5", date("13/01/2020"), date("18/01/2020"), -1);
+        pc.addPeriod("R6", date("20/01/2020"), date("25/01/2020"), -1);
 
         return pc;
     }
