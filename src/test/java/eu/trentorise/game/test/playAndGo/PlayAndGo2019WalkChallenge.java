@@ -44,7 +44,7 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
         assignment.getData().put("periodName", "weekly");
         assignment.getData().put("bonusScore", 100.0);
         assignment.getData().put("bonusPointType", "green leaves");
-        assignment.getData().put("target", 2);
+        assignment.getData().put("target", 1);
         assignment.getData().put("counterName", "Walk_Trips");
         playerSrv.assignChallenge(GAME, "prowler", assignment);
 
@@ -101,7 +101,7 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = new HashMap<String, Object>();
         ExecData input = null;
-        data.put("walkDistance", 4.0);
+        data.put("walkDistance", 1.0);
         input = new ExecData(GAME, ACTION, "prowler", data);
         execList.add(input);
 
@@ -109,9 +109,9 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
 
     @Override
     public void analyzeResult() {
-        assertionPoint(GAME, 60.0, "prowler", "green leaves");
-        assertionPoint(GAME, 4.0, "prowler", "Walk_Km");
-        // assertionBadge(GAME, Arrays.asList("50_point_green"), "prowler", "green leaves");
+        assertionPoint(GAME, 115.0, "prowler", "green leaves");
+        assertionBadge(GAME, Arrays.asList("50_point_green", "100_point_green"), "prowler",
+                "green leaves");
 
     }
 
