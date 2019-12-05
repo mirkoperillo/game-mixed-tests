@@ -9,10 +9,14 @@ global Utility utils;
 rule 'ch_init_survey_check'
 when
 	Action(id == 'start_survey_complete')
-	$challenge : ChallengeConcept( modelName == "survey", $surveyType : fields["surveyType"], $bonusPointType : fields["bonusPointType"], $bonusScore : fields["bonusScore"], isCompleted() != true )	
+	$challenge : ChallengeConcept( modelName == "survey", 
+	                               $surveyType : fields["surveyType"], 
+	                               $bonusPointType : fields["bonusPointType"], 
+	                               $bonusScore : fields["bonusScore"], 
+	                               isCompleted() != true )	
 	$pc : PointConcept(name == (String) $bonusPointType)		
 then
-        utils.log("inside start survey check");
+    utils.log("inside start survey check");
 	if("start".equals($surveyType)){
 		utils.log('Initial survey COMPLETED');
 		$challenge.completed();

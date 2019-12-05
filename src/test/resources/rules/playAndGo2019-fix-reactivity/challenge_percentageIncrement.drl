@@ -7,7 +7,7 @@ import eu.trentorise.game.core.Utility;
 global Utility utils;
 
 rule 'ch_percentageIncrement_check'
-	salience -1
+salience -2000
 when
 	$challenge : ChallengeConcept( modelName == "percentageIncrement", 
 	                               $counter: fields["counterName"], 

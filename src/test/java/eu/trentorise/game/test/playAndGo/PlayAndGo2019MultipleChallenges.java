@@ -57,6 +57,15 @@ public class PlayAndGo2019MultipleChallenges extends GameTest {
         surveyAssignment.getData().put("surveyType", "start");
         playerSrv.assignChallenge(GAME, "prowler", surveyAssignment);
 
+        ChallengeAssignment nextBadgeAssignment = new ChallengeAssignment();
+        nextBadgeAssignment.setModelName("nextBadge");
+        nextBadgeAssignment.setData(new HashMap<>());
+        nextBadgeAssignment.getData().put("bonusScore", 200.0);
+        nextBadgeAssignment.getData().put("bonusPointType", "green leaves");
+        nextBadgeAssignment.getData().put("target", 1.0);
+        nextBadgeAssignment.getData().put("badgeCollectionName", "green leaves");
+        nextBadgeAssignment.getData().put("initialBadgeNum", 2.0);
+        playerSrv.assignChallenge(GAME, "prowler", nextBadgeAssignment);
     }
 
     @Override
@@ -129,9 +138,26 @@ public class PlayAndGo2019MultipleChallenges extends GameTest {
         survey.getVariables().add("surveyType");
         survey.getVariables().add("link");
         gameSrv.saveChallengeModel(GAME, survey);
+
+        // nextBadge model
+        ChallengeModel nextBadge = new ChallengeModel();
+        nextBadge.setGameId(GAME);
+        nextBadge.setName("nextBadge");
+        nextBadge.getVariables().add("bonusScore");
+        nextBadge.getVariables().add("bonusPointType");
+        nextBadge.getVariables().add("badgeCollectionName");
+        nextBadge.getVariables().add("initialBadgeNum");
+        nextBadge.getVariables().add("target");
+        gameSrv.saveChallengeModel(GAME, nextBadge);
     }
 
 
+    /**
+     * scenario:
+     * 
+     * win complete survey challenge -> win percentageIncrement -> gain 3 badges -> win nextBadge
+     * challenge -> 4th badge
+     */
     @Override
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = new HashMap<String, Object>();
@@ -143,10 +169,9 @@ public class PlayAndGo2019MultipleChallenges extends GameTest {
 
     @Override
     public void analyzeResult() {
-        assertionPoint(GAME, 200.0, "prowler", "green leaves");
-        assertionBadge(GAME, Arrays.asList("50_point_green", "100_point_green", "200_point_green"),
-                "prowler",
-                "green leaves");
+        assertionPoint(GAME, 400.0, "prowler", "green leaves");
+        assertionBadge(GAME, Arrays.asList("50_point_green", "100_point_green", "200_point_green",
+                "400_point_green"), "prowler", "green leaves");
 
     }
 

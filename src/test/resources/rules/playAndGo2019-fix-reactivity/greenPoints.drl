@@ -90,7 +90,6 @@ Use salience because this rule should be triggered after mode-counters update.
 */
 
 rule "all modes - update green points"
-salience -500
 when
 	Action ($id : id == "save_itinerary")
 	InputData($travelId : data["travelId"], $bike : data["bikeDistance"], $walk : data["walkDistance"], $bus : data["busDistance"], 
