@@ -26,7 +26,7 @@ public class PlayAndGo2019WalkAndBadge extends GameTest {
     @Autowired
     MongoTemplate mongo;
 
-    private static final String GAME = "playAndGo2019";
+    private static final String GAME = "playAndGo2019-fix-reactivity";
     private static final String ACTION = "save_itinerary";
     private static final String DOMAIN = "";
 

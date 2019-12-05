@@ -21,7 +21,7 @@ import eu.trentorise.game.services.GameService;
 import eu.trentorise.game.services.PlayerService;
 import eu.trentorise.game.test.GameTest;
 
-public class PlayAndGo2019WalkChallenge extends GameTest {
+public class PlayAndGo2019RecommandationChallenge extends GameTest {
 
     @Autowired
     private PlayerService playerSrv;
@@ -42,10 +42,10 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
         assignment.setModelName("absoluteIncrement");
         assignment.setData(new HashMap<>());
         assignment.getData().put("periodName", "weekly");
-        assignment.getData().put("bonusScore", 100.0);
+        assignment.getData().put("bonusScore", 50.0);
         assignment.getData().put("bonusPointType", "green leaves");
-        assignment.getData().put("target", 1);
-        assignment.getData().put("counterName", "Walk_Trips");
+        assignment.getData().put("target", 3);
+        assignment.getData().put("counterName", "Recommendations");
         playerSrv.assignChallenge(GAME, "prowler", assignment);
 
     }
@@ -73,7 +73,7 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
 
 
 
-        defineGameHelper(DOMAIN, GAME, Arrays.asList(ACTION), concepts);
+        defineGameHelper(DOMAIN, GAME, Arrays.asList(ACTION, "app_sent_recommandation"), concepts);
 
         try {
             loadClasspathRules(GAME, "rules/" + GAME);
@@ -101,15 +101,21 @@ public class PlayAndGo2019WalkChallenge extends GameTest {
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> data = new HashMap<String, Object>();
         ExecData input = null;
-        data.put("walkDistance", 1.0);
-        input = new ExecData(GAME, ACTION, "prowler", data);
+        input = new ExecData(GAME, "app_sent_recommandation", "prowler", data);
+        execList.add(input);
+
+        input = new ExecData(GAME, "app_sent_recommandation", "prowler", data);
+        execList.add(input);
+
+        input = new ExecData(GAME, "app_sent_recommandation", "prowler", data);
         execList.add(input);
 
     }
 
     @Override
     public void analyzeResult() {
-        assertionPoint(GAME, 115.0, "prowler", "green leaves");
+        assertionPoint(GAME, 110.0, "prowler", "green leaves");
+        assertionPoint(GAME, 3.0, "prowler", "Recommendations");
         assertionBadge(GAME, Arrays.asList("50_point_green", "100_point_green"), "prowler",
                 "green leaves");
 
