@@ -32,6 +32,5 @@ then
 	     double newScore = $pc.getScore() + (Double) $bonusScore; 
 	     modify($pc) { setScore(newScore) };
 	}
-	// update($pc);
 	update($challenge);
 end

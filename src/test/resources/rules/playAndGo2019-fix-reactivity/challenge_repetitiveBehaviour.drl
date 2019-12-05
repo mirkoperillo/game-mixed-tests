@@ -18,7 +18,6 @@ function Double numberOfActivePeriods(PointConcept pc, Double target, String pNa
 	PeriodInstance pi = pc.getPeriodCurrentInstance(pName);
 	
 	if (pi == null){
-		//System.out.println(pc.getName() + " NULL");
 		return activePeriods;
 	}
 	
@@ -50,7 +49,8 @@ rule "repetitiveBehaviour"
         					  $startTime : getStart().getTime())
         $pc : PointConcept(name == (String) $counter)
         $pcBonus : PointConcept(name == (String) $bonusPointType)
-        eval(numberOfActivePeriods($pc, (Double) $target, (String) $period, $startTime) >= (Double) $periodTarget)
+        eval( numberOfActivePeriods($pc, (Double) $target, 
+             (String) $period, $startTime) >= (Double) $periodTarget)
         Player($playerId : id)
         Game( $gameId: id)
     then
@@ -61,23 +61,15 @@ rule "repetitiveBehaviour"
         
         // assign bonus
 		//How are the point bounded to the player???
+		double newScore = 0.0;
 		if ($bonusScore instanceof Long) {
-		     $pcBonus.setScore($pcBonus.getScore() + (Long)$bonusScore );
+		     newScore = $pcBonus.getScore() + (Long) $bonusScore;
 		} else if ($bonusScore instanceof Integer) {
-		     $pcBonus.setScore($pcBonus.getScore() + (Integer)$bonusScore );
+		     newScore = $pcBonus.getScore() + (Integer) $bonusScore;
 		} else {
-		   $pcBonus.setScore($pcBonus.getScore() +  (Double)$bonusScore );
+		   newScore = $pcBonus.getScore() + (Double) $bonusScore;
 		}
 		
-		update($pcBonus);
+		modify($pcBonus) { setScore(newScore) };
 		update($c);
-        
-        //System notification ??
-		/*ChallengeCompletedNotication ccn = new ChallengeCompletedNotication();
-		ccn.setGameId($gameId);
-		ccn.setPlayerId($playerId);
-		ccn.setTimestamp($c.getDateCompleted().getTime());
-		ccn.setChallengeName($c.getName());
-		insert(ccn);*/
-		
 end

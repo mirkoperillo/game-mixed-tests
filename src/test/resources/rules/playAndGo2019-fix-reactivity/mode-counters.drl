@@ -9,7 +9,8 @@ global Double bike_max;
 rule "update 0-impact counters"
 lock-on-active
 when
-	InputData (($walk : data["walkDistance"] != null || $bike : data["bikeDistance"] != null) &&
+	InputData (
+	    ($walk : data["walkDistance"] != null || $bike : data["bikeDistance"] != null) &&
 		($bus : data["busDistance"] == null || ((Double)$bus)==0) && 
 		($train : data["trainDistance"] == null || ((Double)$train)==0) &&
 		($car : data["carDistance"]==null || ((Double)$car)==0) &&
@@ -20,15 +21,15 @@ then
 	if($walk!=null){
 	if((Double) $walk >= walk_min){
 		utils.log("apply \'ZeroImpact_Trips update\'");
-		$zeroImpactTrips.setScore($zeroImpactTrips.getScore() + 1.0d);
-		update($zeroImpactTrips);
+		double trips = $zeroImpactTrips.getScore() + 1.0d;
+		modify($zeroImpactTrips) { setScore(trips) };
 		incremented=true;
 		}
 	}
 	if(incremented==false && $bike!=null){
 		utils.log("apply \'ZeroImpact_Trips update\'");
-		$zeroImpactTrips.setScore($zeroImpactTrips.getScore() + 1.0d);
-		update($zeroImpactTrips);
+		double trips = $zeroImpactTrips.getScore() + 1.0d;
+		modify($zeroImpactTrips) { setScore(trips) };
 	}
 end
 
@@ -40,10 +41,10 @@ when
     $walkKm : PointConcept(name == "Walk_Km")
 then
 	utils.log("apply \'Walk_Trips and Walk_Km update\'");
-	$walkTrips.setScore($walkTrips.getScore() + 1.0d);
-	$walkKm.setScore($walkKm.getScore() + (Double) $km);
-	update($walkTrips); 
-	update($walkKm);
+	double trips = $walkTrips.getScore() + 1.0d;
+	modify($walkTrips) { setScore(trips) };
+	double kmScore = $walkKm.getScore() + (Double) $km;
+	modify($walkKm) { setScore(kmScore) };
 end
 
 
@@ -59,17 +60,17 @@ then
 	if($bs !=null){
 		if((boolean) $bs == true) {
 			utils.log("apply \'BikeSharing_Trips and BikeSharing_Km update\'");
-			$bsTrips.setScore($bsTrips.getScore() + 1.0d);
-			$bsKm.setScore($bsKm.getScore() + (Double) $km);
-			update($bsTrips); 
-			update($bsKm);
+			double trips = $bsTrips.getScore() + 1.0d;
+			modify($bsTrips) { setScore(trips) };
+			double kmScore = $bsKm.getScore() + (Double) $km;
+			modify($bsKm) { setScore(kmScore) };
 		} 
 	}
 	utils.log("apply \'Bike_Trips and Bike_Km update\'");
-	$bikeTrips.setScore($bikeTrips.getScore() + 1.0d);
-	$bikeKm.setScore($bikeKm.getScore() + (Double) $km);
-	update($bikeTrips); 
-	update($bikeKm);
+	double trips = $bikeTrips.getScore() + 1.0;
+	modify($bikeTrips) { setScore(trips) };
+	double kmScore = $bikeKm.getScore() + (Double) $km;
+	modify($bikeKm) { setScore(kmScore) };
 end
 
 
@@ -81,10 +82,10 @@ when
     $busKm : PointConcept(name == "Bus_Km")
 then
 	utils.log("apply \'Bus_Trips and Bus_Km update\'");
-	$busTrips.setScore($busTrips.getScore() + 1.0d);
-	$busKm.setScore($busKm.getScore() + (Double) $km);
-	update($busTrips); 
-	update($busKm);
+	double trips = $busTrips.getScore() + 1.0;
+	modify($busTrips) { setScore(trips) };
+	double kmScore = $busKm.getScore() + (Double) $km;
+	modify($busKm) { setScore(kmScore) };
 end
 
 
@@ -96,10 +97,10 @@ when
     $trainKm : PointConcept(name == "Train_Km")
 then
 	utils.log("apply \'Train_Trips and Train_Km update\'");
-	$trainTrips.setScore($trainTrips.getScore() + 1.0d);
-	$trainKm.setScore($trainKm.getScore() + (Double) $km);
-	update($trainTrips); 
-	update($trainKm);
+	double trips = $trainTrips.getScore() + 1.0;
+	modify($trainTrips) { setScore(trips) };
+	double kmScore = $trainKm.getScore() + (Double) $km;
+	modify($trainKm) { setScore(kmScore) };
 end
 
 rule "update car counters"
@@ -110,10 +111,10 @@ when
     $carKm : PointConcept(name == "Car_Km")
 then
 	utils.log("apply \'Car_Trips and Car_Km update\'");
-	$carTrips.setScore($carTrips.getScore() + 1.0d);
-	$carKm.setScore($carKm.getScore() + (Double) $km);
-	update($carTrips); 
-	update($carKm);
+	double trips = $carTrips.getScore() + 1.0;
+	modify($carTrips) { setScore(trips) };
+	double kmScore = $carKm.getScore() + (Double) $km;
+	modify($carKm) { setScore(kmScore) };
 end
 
 rule "update no-car counters"
@@ -142,8 +143,8 @@ then
 	
 	if (isValidNoCar == true) {
 		utils.log("apply \'NoCar_Trips update\'");
-		$noCarTrips.setScore($noCarTrips.getScore() + 1.0d);
-		update($noCarTrips); 
+		double trips = $noCarTrips.getScore() + 1.0;
+		modify($noCarTrips) { setScore(trips) };
 	}
 end
 
@@ -154,8 +155,8 @@ when
 	$reccomend : PointConcept(name == "Recommendations")
 then
 	utils.log("apply \'Recommendations update\'");
-	$reccomend.setScore($reccomend.getScore() + 1.0d);
-	update($reccomend); 
+	double reccomandations = $reccomend.getScore() + 1.0;
+	modify($reccomend) { setScore(reccomandations) };
 end
 
 rule "update P&R counters"
@@ -165,8 +166,8 @@ when
     $PandR : PointConcept(name == "PandR_Trips")
 then
 	utils.log("apply \'PandR_Trips update\'");
-	$PandR.setScore($PandR.getScore() + 1.0d);
-	update($PandR);
+	double trips = $PandR.getScore() + 1.0;
+	modify($PandR) { setScore(trips) };
 end
 
 rule "update Cable counters"
@@ -176,6 +177,6 @@ when
     $transitTrips : PointConcept(name == "Transit_Trips")
 then
 	utils.log("apply \'Transit_Trips update\'");
-	$transitTrips.setScore($transitTrips.getScore() + 1.0d);
-	update($transitTrips); 
+	double trips = $transitTrips.getScore() + 1.0;
+	modify($transitTrips) { setScore(trips) }; 
 end

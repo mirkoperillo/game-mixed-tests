@@ -1,9 +1,7 @@
 package eu.trentorise.game.model
 
-//list any import classes here.
 import eu.trentorise.game.core.Utility;
 
-//declare any global variables here
 global Utility utils;
 
 rule 'ch_next_badge_check'
@@ -23,9 +21,7 @@ when
 then
 	utils.log('nextBadge COMPLETED');
 	$challenge.completed();
-	// $pc.setScore($pc.getScore() + (Double) $bonusScore);
 	double newScore = $pc.getScore() + (Double) $bonusScore;
 	modify($pc) { setScore(newScore) };
-	// update($pc);
 	update($challenge);	
 end

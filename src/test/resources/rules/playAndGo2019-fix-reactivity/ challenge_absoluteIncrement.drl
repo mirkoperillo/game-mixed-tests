@@ -23,16 +23,12 @@ then
 	if ($bonusScore instanceof Long) {
 		 double newScore = $pc.getScore() + (Long) $bonusScore;
 	     modify($pc) {setScore(newScore)};
-	     // $pc.setScore( );
 	} else if ($bonusScore instanceof Integer) {
      	 double newScore = $pc.getScore() + (Integer) $bonusScore;
 	     modify($pc) {setScore(newScore)};
-	     // $pc.setScore($pc.getScore() + (Integer)$bonusScore );
 	} else {
-	   // $pc.setScore($pc.getScore() +  (Double)$bonusScore );
 	   double newScore = $pc.getScore() + (Double) $bonusScore;
-	   modify($pc) {setScore(newScore)};
+	   modify($pc) { setScore(newScore) };
 	}
-	// update($pc);
 	update($challenge);
 end

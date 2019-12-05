@@ -41,8 +41,6 @@ park_and_ride_points=15.0
 
 #soglie di rilevanza per modo
 walk_min=0.25
-//walk_max=3.5
-//bike_max=7.0
 walk_daily_max=10.0
 bike_daily_max=30.0
 pt_daily_max=8.0
