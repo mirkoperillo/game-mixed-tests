@@ -11,8 +11,8 @@ when
 	$pc : PointConcept(name == "green leaves")
 	$cd: CustomData($reg : this['checkin_new_user_Trento_Fiera'] != true)
 then
+	utils.log("green leaves for user registration rule COMPLETED");		
 	double newScore = $pc.getScore() + green_Trento_Fiera_registration_points; 
 	modify($pc) { setScore(newScore) };
 	$cd.put('checkin_new_user_Trento_Fiera',true);
-	utils.log("green leaves for user registration rule COMPLETED");		
 end
