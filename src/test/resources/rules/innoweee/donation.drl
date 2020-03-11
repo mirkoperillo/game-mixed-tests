@@ -13,33 +13,12 @@ when
 	$reuseCoinCounter : PointConcept(name == "reuseCoin")
     $recycleCoinCounter : PointConcept(name == "recycleCoin")
 	$reduceCoinCounter : PointConcept(name == "reduceCoin")
-	
-	$totalReuse : PointConcept(name == "totalReuse")
-    $totalReduce : PointConcept(name == "totalReduce")
-    $totalRecycle : PointConcept(name == "totalRecycle") 
 then
 	
 	double reuseCoin = (Double) $reuseCoin;
 	double reduceCoin = (Double) $reduceCoin;
 	double recycleCoin = (Double) $recycleCoin;
-	
-	// check if increment the totals
-	if (reuseCoin > 0 ) {
-		double gained = $totalReuse.getScore() + reuseCoin; 
-		modify($totalReuse) { setScore( gained ) };
-	}
-	
-	if (reduceCoin > 0 ) {
-		double gained = $totalReduce.getScore() + reduceCoin; 
-		modify($totalReduce) { setScore( gained ) };
-	}
-	
-	if (recycleCoin > 0 ) {
-		double gained = $totalRecycle.getScore() + recycleCoin; 
-		modify($totalRecycle) { setScore( gained ) };
-	}
-	
-	
+		
 	double reuseCoinValue = $reuseCoinCounter.getScore() + (Double) $reuseCoin;
 	if(reuseCoinValue >= 0) {
 		modify($reuseCoinCounter) { setScore( reuseCoinValue ) };
