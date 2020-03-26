@@ -1,0 +1,35 @@
+package eu.trentorise.game.model
+
+rule "gain level-1"
+when
+	Action( id == 'taskCompleted')
+    InputData(
+    	$moves : data['moves'] == 3.0,
+    	$errors : data['errors'] == 0.0
+    )
+    $movesScore : PointConcept(name == "moves")
+    $errorsScore : PointConcept(name == "errors")
+    $customData : CustomData(this["level"] == null) // player without levels
+then
+	modify($movesScore) { setScore((double) $moves); } // update the counter    
+	modify($errorsScore) { setScore((double) $errors); } // update the counter
+    
+    modify($customData) { put("level", "level-1"); }
+end
+
+rule "gain level-2"
+when
+	Action( id == 'taskCompleted')
+    InputData(
+    	$moves : data['moves'] == 2.0,
+    	$errors : data['errors'] == 0.0
+    )
+    $movesScore : PointConcept(name == "moves")
+    $errorsScore : PointConcept(name == "errors")
+    $customData : CustomData(this["level"] == 'level-1') // player without levels
+then
+	modify($movesScore) { setScore((double) $moves); } // update the counter    
+	modify($errorsScore) { setScore((double) $errors); } // update the counter
+    
+    modify($customData) { put("level", "level-2"); }
+end
