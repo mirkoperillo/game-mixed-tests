@@ -4,7 +4,7 @@ rule "reward level-1"
 when
     Action( id == 'taskCompleted')
     InputData(
-    	$moves : data['moves'] == 3.0,
+    	$moves : data['moves'] == 5.0,
     	$errors : data['errors'] == 0.0
     )
     $pointsScore : PointConcept(name == "points")
@@ -20,7 +20,7 @@ rule "reward level-2"
 when
     Action( id == 'taskCompleted')
     InputData(
-    	$moves : data['moves'] == 2.0,
+    	$moves : data['moves'] == 5.0,
     	$errors : data['errors'] == 0.0
     )
     $pointsScore : PointConcept(name == "points")

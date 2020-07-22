@@ -23,7 +23,7 @@ public class PapyrusGameTest extends GameTest {
     @Override
     public void initEnv() {
         Map<String, Object> customData = new HashMap<>();
-        customData.put("level", "level-1");
+        // customData.put("level", "level-1");
         savePlayerState("papyrus", "alice", new ArrayList<>(), customData);
     }
 
@@ -47,7 +47,7 @@ public class PapyrusGameTest extends GameTest {
     @Override
     public void defineExecData(List<ExecData> execList) {
         Map<String, Object> d = new HashMap<String, Object>();
-        d.put("moves", 2.0);
+        d.put("moves", 5.0);
         d.put("errors", 0.0);
 
         ExecData data = new ExecData(GAME, "taskCompleted", "alice", d);
