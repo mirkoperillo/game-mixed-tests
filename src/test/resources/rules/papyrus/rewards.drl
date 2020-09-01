@@ -27,6 +27,8 @@ when
     $goldCoinScore : PointConcept(name == "gold coins")
     $customData : CustomData(this["level"] == 'level-2')
 then
-	modify($pointsScore) { setScore(7.0); } // update the counter    
-	modify($goldCoinScore) { setScore(3.0); } // update the counter
+	double newPoints = $pointsScore.getScore() + 7.0;
+	modify($pointsScore) { setScore(newPoints); } // update the counter
+	double newGold = $goldCoinScore.getScore() + 3.0;    
+	modify($goldCoinScore) { setScore(newGold); } // update the counter
 end
