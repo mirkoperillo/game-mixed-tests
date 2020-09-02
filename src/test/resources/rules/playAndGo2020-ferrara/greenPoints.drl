@@ -11,6 +11,10 @@ global Utility utils;
 global Double green_transit_points;
 global Double park_and_ride_points;
 global Double recommendation_bonus;
+global Double driver_first_passenger_bonus;
+global Double driver_other_passenger_bonus;
+global Double passenger_bonus;
+
 // global Double green_bus_points_base;
 // global Double green_bus_points_step0;
 // global Double green_bus_points_step1;
@@ -161,13 +165,13 @@ then
 	if($carpooling != null) {
 		utils.log("rule \'all modes - update green points\': counting Carpooling green points");
 		if((boolean) $isDriver && (boolean) $firstPair) {
-			score = score + 5.0;
+			score = score + driver_first_passenger_bonus;
 		}
 		if((boolean) $isDriver && (boolean) $firstPair == false) {
-			score = score + 2.0;
+			score = score + driver_other_passenger_bonus;
 		}
 		if((boolean) $isDriver == false) {
-			score = score + 5.0;
+			score = score + passenger_bonus;
 		}
 	}
 	
