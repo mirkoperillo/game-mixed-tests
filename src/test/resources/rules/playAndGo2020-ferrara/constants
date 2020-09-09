@@ -39,7 +39,7 @@ green_transit_points=15.0
 #GREEN POINTS for each park & ride
 park_and_ride_points=15.0
 
-#GRREN POINTS for carpooling
+#GREEN POINTS for carpooling
 driver_first_passenger_bonus=5.0
 driver_other_passenger_bonus=2.0
 passenger_bonus=5.0
@@ -52,6 +52,7 @@ walk_daily_max=10.0
 bike_daily_max=30.0
 pt_daily_max=8.0
 transit_daily_max=4.0
+carpooling_daily_max=4.0
 
 #P&R locations in Trento
 parkings=Via Asiago\, Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Parcheggio Centro, Municipio

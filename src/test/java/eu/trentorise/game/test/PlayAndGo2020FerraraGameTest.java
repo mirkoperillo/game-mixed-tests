@@ -82,8 +82,9 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
      */
     @Override
     public void defineExecData(List<ExecData> execList) {
-        // Map<String, Object> data = new HashMap<String, Object>();
-        // ExecData input = null;
+        Map<String, Object> data = new HashMap<String, Object>();
+        ExecData input = null;
+
         // data.put("walkDistance", 10.0);
         // input = new ExecData(GAME, ACTION, "prowler", data);
         // execList.add(input);
@@ -105,62 +106,151 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
 
         // test carpooling
         // Wolverine driver, JeanGrey, Cyclops passengers
-        Map<String, Object> data = new HashMap<String, Object>();
-        ExecData input = null;
+        // Map<String, Object> data = new HashMap<String, Object>();
+        // ExecData input = null;
+        //
+        // // Wolverine - JeanGrey bonus
+        // data.put("carpoolingDistance", 10.0);
+        // data.put("driverTrip", true);
+        // data.put("firstPair", true);
+        // input = new ExecData(GAME, ACTION, "Wolverine", data);
+        // execList.add(input);
+        //
+        // // JeanGrey passenger
+        // data = new HashMap<String, Object>();
+        // data.put("carpoolingDistance", 10.0);
+        // data.put("driverTrip", false);
+        // input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        // execList.add(input);
+        //
+        // // Cyclops passenger
+        // data = new HashMap<String, Object>();
+        // data.put("carpoolingDistance", 10.0);
+        // data.put("driverTrip", false);
+        // input = new ExecData(GAME, ACTION, "Cyclops", data);
+        // execList.add(input);
+        //
+        // // Wolverine - Cyclops bonus
+        // data = new HashMap<String, Object>();
+        // data.put("carpoolingDistance", 10.0);
+        // data.put("driverTrip", true);
+        // data.put("firstPair", false);
+        // input = new ExecData(GAME, ACTION, "Wolverine", data);
+        // execList.add(input);
+        //
+        // // Wolverine - walk
+        // data = new HashMap<String, Object>();
+        // data.put("walkDistance", 1.0);
+        // input = new ExecData(GAME, ACTION, "Wolverine", data);
+        // execList.add(input);
 
-        // Wolverine - JeanGrey bonus
+        data = new HashMap<String, Object>();
         data.put("carpoolingDistance", 10.0);
         data.put("driverTrip", true);
         data.put("firstPair", true);
         input = new ExecData(GAME, ACTION, "Wolverine", data);
         execList.add(input);
 
-        // JeanGrey passenger
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 1.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 12.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 15.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 12.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 1.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 1.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", false);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 10.0);
+        data.put("driverTrip", true);
+        data.put("firstPair", true);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 12.0);
+        data.put("driverTrip", false);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 15.0);
+        data.put("driverTrip", false);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        execList.add(input);
+
         data = new HashMap<String, Object>();
         data.put("carpoolingDistance", 10.0);
         data.put("driverTrip", false);
         input = new ExecData(GAME, ACTION, "JeanGrey", data);
         execList.add(input);
 
-        // Cyclops passenger
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 10.0);
+        data.put("carpoolingDistance", 11.0);
         data.put("driverTrip", false);
-        input = new ExecData(GAME, ACTION, "Cyclops", data);
-        execList.add(input);
-
-        // Wolverine - Cyclops bonus
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 10.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", false);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
-        execList.add(input);
-
-        // Wolverine - walk
-        data = new HashMap<String, Object>();
-        data.put("walkDistance", 1.0);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        input = new ExecData(GAME, ACTION, "JeanGrey", data);
         execList.add(input);
 
     }
 
     @Override
     public void analyzeResult() {
-        assertionPoint(GAME, 10.0, "Wolverine", "Carpooling_Km");
-        assertionPoint(GAME, 1.0, "Wolverine", "Carpooling_Trips");
-        assertionPoint(GAME, 10.0, "JeanGrey", "Carpooling_Km");
-        assertionPoint(GAME, 1.0, "JeanGrey", "Carpooling_Trips");
-        assertionPoint(GAME, 10.0, "Cyclops", "Carpooling_Km");
-        assertionPoint(GAME, 1.0, "Cyclops", "Carpooling_Trips");
+        // assertionPoint(GAME, 10.0, "Wolverine", "Carpooling_Km");
+        // assertionPoint(GAME, 1.0, "Wolverine", "Carpooling_Trips");
+        // assertionPoint(GAME, 10.0, "JeanGrey", "Carpooling_Km");
+        // assertionPoint(GAME, 1.0, "JeanGrey", "Carpooling_Trips");
+        // assertionPoint(GAME, 10.0, "Cyclops", "Carpooling_Km");
+        // assertionPoint(GAME, 1.0, "Cyclops", "Carpooling_Trips");
+        //
+        // // 7.0 carpooling + 15.0 1Km Walk
+        // assertionPoint(GAME, 22.0, "Wolverine", "green leaves");
+        //
+        // assertionPoint(GAME, 5.0, "JeanGrey", "green leaves");
+        // assertionPoint(GAME, 5.0, "Cyclops", "green leaves");
+        //
+        // assertionPoint(GAME, 1.0, "Wolverine", "NoCar_Trips");
 
-        // 7.0 carpooling + 15.0 1Km Walk
-        assertionPoint(GAME, 22.0, "Wolverine", "green leaves");
+        // test max daily trips
+        assertionPoint(GAME, 5.0, "Wolverine", "Carpooling_Trips");
+        assertionPoint(GAME, 50.0, "Wolverine", "Carpooling_Km");
+        assertionPoint(GAME, 20.0, "Wolverine", "green leaves");
 
-        assertionPoint(GAME, 5.0, "JeanGrey", "green leaves");
-        assertionPoint(GAME, 5.0, "Cyclops", "green leaves");
-
-        assertionPoint(GAME, 1.0, "Wolverine", "NoCar_Trips");
+        assertionPoint(GAME, 6.0, "JeanGrey", "Carpooling_Trips");
+        assertionPoint(GAME, 59.0, "JeanGrey", "Carpooling_Km");
+        assertionPoint(GAME, 22.0, "JeanGrey", "green leaves");
     }
 
 }

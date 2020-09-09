@@ -6,8 +6,6 @@ import java.lang.Math;
 
 global Utility utils;
 
-// global Double green_walk_points;
-// global Double green_bike_points;
 global Double green_transit_points;
 global Double park_and_ride_points;
 global Double recommendation_bonus;
@@ -15,22 +13,8 @@ global Double driver_first_passenger_bonus;
 global Double driver_other_passenger_bonus;
 global Double passenger_bonus;
 
-// global Double green_bus_points_base;
-// global Double green_bus_points_step0;
-// global Double green_bus_points_step1;
-// global Double green_bus_points_step2;
-// global Double green_bus_points_step3;
-// global Double zero_impact_booster;
-
-// global Double bus_threshold_step0;
-// global Double bus_threshold_step1;
-// global Double bus_threshold_step2;
-// global Double bus_threshold_step3;
-// global Double walk_min;
-// global Double walk_daily_max;
-// global Double bike_daily_max;
-// global Double pt_daily_max;
 global Double transit_daily_max;
+global Double carpooling_daily_max;
 global java.util.ArrayList parkings;
 
 function double getModePoint(String mode) {
@@ -119,6 +103,7 @@ when
 	$transitTrips : PointConcept(name == "Transit_Trips")
 	$trainTrips : PointConcept(name == "Train_Trips")
 	$busTrips : PointConcept(name == "Bus_Trips")
+	$carpoolingTrips : PointConcept(name == "Carpooling_Trips")
 then
 	utils.log("all modes - update green points");
 	
@@ -164,14 +149,19 @@ then
 	//handling of carpooling points
 	if($carpooling != null) {
 		utils.log("rule \'all modes - update green points\': counting Carpooling green points");
-		if((boolean) $isDriver && (boolean) $firstPair) {
-			score = score + driver_first_passenger_bonus;
-		}
-		if((boolean) $isDriver && (boolean) $firstPair == false) {
-			score = score + driver_other_passenger_bonus;
-		}
-		if((boolean) $isDriver == false) {
-			score = score + passenger_bonus;
+		Double carpoolingDaily = $carpoolingTrips.getPeriodCurrentScore("daily");
+		if( carpoolingDaily <= carpooling_daily_max) {
+			if((boolean) $isDriver && (boolean) $firstPair) {
+				score = score + driver_first_passenger_bonus;
+			}
+			if((boolean) $isDriver && (boolean) $firstPair == false) {
+				score = score + driver_other_passenger_bonus;
+			}
+			if((boolean) $isDriver == false) {
+				score = score + passenger_bonus;
+			}
+		} else {
+			utils.log("rule \'all modes - update green points\': Reached daily limit for carpooling trips");
 		}
 	}
 	
