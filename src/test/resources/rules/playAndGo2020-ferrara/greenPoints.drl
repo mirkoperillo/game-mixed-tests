@@ -20,13 +20,13 @@ global java.util.ArrayList parkings;
 function double getModePoint(String mode) {
 	switch(mode) {
 		case 'Walk':
-			return 15.0;
+			return 10.0;
 		case 'Bike':
-			return 7.5;
+			return 6.0;
 		case 'Bus':
-			return 5.0;
+			return 3.75;
 		case 'Train':
-			return 5.0;
+			return 2.5;
 		default:
 			return 0.0;	
 	}	
@@ -37,11 +37,11 @@ function double getModeLimit(String mode) {
 		case 'Walk':
 			return 10.0;
 		case 'Bike':
-			return 20.0;
+			return 25.0;
 		case 'Bus':
-			return 30.0;
+			return 40.0;
 		case 'Train':
-			return 30.0;
+			return 60.0;
 		default:
 			return 0.0;	
 	}	
