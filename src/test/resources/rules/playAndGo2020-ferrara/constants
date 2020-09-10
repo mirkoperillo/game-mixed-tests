@@ -36,6 +36,9 @@ bus_threshold_step1=5.0
 # GREEN POINTS for each Sardagna TRANSIT trip
 green_transit_points=15.0
 
+# GREEN POINTS for each Boat trip
+green_boat_points=10.0
+
 #GREEN POINTS for each park & ride
 park_and_ride_points=15.0
 
@@ -53,6 +56,7 @@ bike_daily_max=30.0
 pt_daily_max=8.0
 transit_daily_max=4.0
 carpooling_daily_max=4.0
+boat_daily_max=4.0
 
 #P&R locations in Trento
 parkings=Via Asiago\, Stazione FS Villazzano, Ex-Zuffo, Monte Baldo, Via Lidorno, Ghiaie via Fersina, Via Ragazzi del '99, Parcheggio Centro, Municipio

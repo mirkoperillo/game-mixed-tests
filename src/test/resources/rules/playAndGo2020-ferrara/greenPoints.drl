@@ -7,6 +7,7 @@ import java.lang.Math;
 global Utility utils;
 
 global Double green_transit_points;
+global Double green_boat_points;
 global Double park_and_ride_points;
 global Double recommendation_bonus;
 global Double driver_first_passenger_bonus;
@@ -15,6 +16,7 @@ global Double passenger_bonus;
 
 global Double transit_daily_max;
 global Double carpooling_daily_max;
+global Double boat_daily_max;
 global java.util.ArrayList parkings;
 
 function double getModePoint(String mode) {
@@ -89,6 +91,7 @@ when
 		      $train : data["trainDistance"], 
 		      $car : data["carDistance"], 
 		      $park : data["park"],
+		      $boat: data["boatDistance"],
 		      $carpooling: data["carpoolingDistance"],
 		      $isDriver: data["driverTrip"],
 		      $firstPair: data["firstPair"]
@@ -104,6 +107,7 @@ when
 	$trainTrips : PointConcept(name == "Train_Trips")
 	$busTrips : PointConcept(name == "Bus_Trips")
 	$carpoolingTrips : PointConcept(name == "Carpooling_Trips")
+	$boatTrips : PointConcept(name == "Boat_Trips")
 then
 	utils.log("all modes - update green points");
 	
@@ -135,7 +139,7 @@ then
 	}
 	
 	//handling of cable/transit points
-	if($cable!=null) {
+	if($cable != null) {
 		Double transitDaily = $transitTrips.getPeriodCurrentScore("daily");
 		utils.log("rule \'all modes - update green points\': counting Cable-Transit green points");
 		if (transitDaily < transit_daily_max) {
@@ -143,6 +147,17 @@ then
 		}
 		else {
 			utils.log("rule \'all modes - update green points\': Reached daily limit for transit trips (cable)");
+		}
+	}
+	
+	//handling of boat points
+	if($boat != null) {
+		utils.log("rule \'all modes - update green points\': counting Boat green points");
+		Double boatDaily = $boatTrips.getPeriodCurrentScore("daily");
+		if (boatDaily <= boat_daily_max) {
+			score = score + green_boat_points;
+		} else {
+			utils.log("rule \'all modes - update green points\': Reached daily limit for boat trips");
 		}
 	}
 	

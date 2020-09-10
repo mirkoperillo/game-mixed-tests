@@ -35,7 +35,8 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         List<String> scoreNames = Arrays.asList("green leaves", "PandR_Trips", "Transit_Trips",
                 "BikeSharing_Km", "Bike_Trips", "Walk_Trips", "Walk_Km", "Car_Trips", "NoCar_Trips",
                 "Bus_Km", "BikeSharing_Trips", "Car_Km", "Train_Km", "Recommendations", "Bus_Trips",
-                "Train_Trips", "Bike_Km", "ZeroImpact_Trips", "Carpooling_Km", "Carpooling_Trips");
+                "Train_Trips", "Bike_Km", "ZeroImpact_Trips", "Carpooling_Km", "Carpooling_Trips",
+                "Boat_Trips");
 
 
         final Date startDate = LocalDate.now().toDate();
@@ -152,77 +153,107 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 1.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 12.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 15.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 12.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 1.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 1.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", false);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Gambit", data);
         execList.add(input);
 
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 10.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
-        execList.add(input);
-
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 12.0);
-        data.put("driverTrip", false);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
-        execList.add(input);
-
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 15.0);
-        data.put("driverTrip", false);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
-        execList.add(input);
-
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 10.0);
-        data.put("driverTrip", false);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
-        execList.add(input);
-
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 11.0);
-        data.put("driverTrip", false);
-        input = new ExecData(GAME, ACTION, "JeanGrey", data);
-        execList.add(input);
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 1.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "Wolverine", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 12.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "Wolverine", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 15.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "Wolverine", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 12.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "Wolverine", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 1.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 1.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", false);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 10.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 12.0);
+         data.put("driverTrip", false);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 15.0);
+         data.put("driverTrip", false);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 10.0);
+         data.put("driverTrip", false);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
+        
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 11.0);
+         data.put("driverTrip", false);
+         input = new ExecData(GAME, ACTION, "JeanGrey", data);
+         execList.add(input);
 
     }
 
@@ -251,6 +282,13 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         assertionPoint(GAME, 6.0, "JeanGrey", "Carpooling_Trips");
         assertionPoint(GAME, 59.0, "JeanGrey", "Carpooling_Km");
         assertionPoint(GAME, 22.0, "JeanGrey", "green leaves");
+
+        // test boat trip
+        assertionPoint(GAME, 5.0, "Cyclop", "Boat_Trips");
+        assertionPoint(GAME, 40.0, "Cyclop", "green leaves");
+        assertionPoint(GAME, 1.0, "Gambit", "Boat_Trips");
+        assertionPoint(GAME, 10.0, "Gambit", "green leaves");
+
     }
 
 }

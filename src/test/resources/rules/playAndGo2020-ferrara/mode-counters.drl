@@ -142,7 +142,8 @@ when
     	$bus : data["busDistance"], 
     	$bike : data["bikeDistance"], 
     	$train : data["trainDistance"],
-    	$carpooling : data["carpoolingDistance"])
+    	$carpooling : data["carpoolingDistance"],
+    	$boat : data["boatDistance"])
     $noCarTrips : PointConcept(name == "NoCar_Trips")
 then
 	boolean isValidNoCar = false;
@@ -157,6 +158,8 @@ then
 		else if ($train != null && (Double)$train > 0)
 			isValidNoCar = true;
 		else if ($transit != null && (Double)$transit > 0)
+			isValidNoCar = true;
+		else if ($boat != null)
 			isValidNoCar = true;
 	}
 	
@@ -202,4 +205,15 @@ then
 	utils.log("apply \'Transit_Trips update\'");
 	$transitTrips.setScore($transitTrips.getScore() + 1.0d);
 	update($transitTrips); 
+end
+
+rule "update boat counters"
+lock-on-active
+when
+	InputData( data["boatDistance"] != null)
+    $boatTrips : PointConcept(name == "Boat_Trips")
+then
+	utils.log("apply \'Boat_Trips update\'");
+	$boatTrips.setScore($boatTrips.getScore() + 1.0d);
+	update($boatTrips); 
 end
