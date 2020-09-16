@@ -178,12 +178,12 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         // input = new ExecData(GAME, ACTION, "Wolverine", data);
         // execList.add(input);
 
-        data = new HashMap<String, Object>();
-        data.put("carpoolingDistance", 10.0);
-        data.put("driverTrip", true);
-        data.put("firstPair", true);
-        input = new ExecData(GAME, ACTION, "Wolverine", data);
-        execList.add(input);
+         data = new HashMap<String, Object>();
+         data.put("carpoolingDistance", 10.0);
+         data.put("driverTrip", true);
+         data.put("firstPair", true);
+         input = new ExecData(GAME, ACTION, "Wolverine", data);
+         execList.add(input);
 
         data = new HashMap<String, Object>();
         data.put("boatDistance", 0.0);
@@ -208,11 +208,6 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         data = new HashMap<String, Object>();
         data.put("boatDistance", 0.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
-        execList.add(input);
-
-        data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
-        input = new ExecData(GAME, ACTION, "Gambit", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
@@ -289,15 +284,18 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("surveyType", "boat");
         input = new ExecData(GAME, "boat_survey_complete", "Gambit", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Gambit", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
         data.put("surveyType", "boat");
         input = new ExecData(GAME, "boat_survey_complete", "Cable", data);
         execList.add(input);
-
     }
 
     @Override

@@ -214,6 +214,6 @@ when
     $boatTrips : PointConcept(name == "Boat_Trips")
 then
 	utils.log("apply \'Boat_Trips update\'");
-	$boatTrips.setScore($boatTrips.getScore() + 1.0d);
-	update($boatTrips); 
+	double trips = $boatTrips.getScore();
+	modify($boatTrips) { setScore(trips + 1.0); }
 end

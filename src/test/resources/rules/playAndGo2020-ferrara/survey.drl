@@ -39,29 +39,6 @@ then
 	}
 end
 
-rule 'ch_boat_survey_check'
-when
-	Action(id == 'boat_survey_complete')
-	$challenge : ChallengeConcept( modelName == "survey", $surveyType : fields["surveyType"], $bonusPointType : fields["bonusPointType"], $bonusScore : fields["bonusScore"], isCompleted() != true )	
-	$pc : PointConcept(name == (String) $bonusPointType)
-	$boatTrips : PointConcept(name == 'Boat_Trips')
-then
-	Double boatDaily = $boatTrips.getPeriodCurrentScore("daily");
-	if("boat".equals($surveyType)){
-		if(boatDaily >= 1.0) {
-			utils.log('Boat survey COMPLETED');
-			$challenge.completed();
-			$pc.setScore($pc.getScore() + (Double) $bonusScore);
-			update($pc);
-			update($challenge);
-		} else {
-			utils.log('Trying to complete the Boat survey, but no boat daily trip found, challenge FAILED');
-		}
-	}
-end
-
-
-
 rule 'ch_final_survey_check'
 when
 	Action(id == 'end_survey_complete')
