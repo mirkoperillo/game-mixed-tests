@@ -53,7 +53,7 @@ when
 then
 	utils.log('Boat challenge COMPLETED');
 	$challenge.completed();
-	$pc.setScore($pc.getScore() + (Double) $bonusScore);
-	update($pc);
+	double newScore = $pc.getScore() + (Double) $bonusScore;
+	modify($pc)  { setScore(newScore); }
 	update($challenge);
 end
