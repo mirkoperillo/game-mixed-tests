@@ -3,6 +3,8 @@ import eu.trentorise.game.core.Utility;
 
 global Utility utils;
 global Double walk_min;
+global Double carpooling_min_km;
+global Double boat_min_km;
 global Double walk_max;
 global Double bike_max;
 
@@ -105,7 +107,8 @@ end
 rule "update carpooling counters"
 lock-on-active
 when
-    InputData( $km : data["carpoolingDistance"] != null, 
+    InputData( $km : data["carpoolingDistance"] != null,
+    		   $km >= carpooling_min_km, 
     		   (data["driverTrip"] == true && data["firstPair"] == true) || data["driverTrip"] == false   
              )
     $carpoolingTrips : PointConcept(name == "Carpooling_Trips")
@@ -163,7 +166,7 @@ then
 			isValidNoCar = true;
 	}
 	
-	if($carpooling != null) {
+	if($carpooling != null && (Double)$carpooling >= carpooling_min_km) {
 		isValidNoCar = false;
 	}
 	
@@ -210,7 +213,7 @@ end
 rule "update boat counters"
 lock-on-active
 when
-	InputData( data["boatDistance"] != null)
+	InputData( $km: data["boatDistance"] != null, $km >= boat_min_km)
     $boatTrips : PointConcept(name == "Boat_Trips")
 then
 	utils.log("apply \'Boat_Trips update\'");

@@ -17,6 +17,9 @@ global Double passenger_bonus;
 global Double transit_daily_max;
 global Double carpooling_daily_max;
 global Double boat_daily_max;
+global Double carpooling_min_km;
+global Double boat_min_km;
+
 global java.util.ArrayList parkings;
 
 function double getModePoint(String mode) {
@@ -151,7 +154,7 @@ then
 	}
 	
 	//handling of boat points
-	if($boat != null) {
+	if($boat != null && (Double) $boat >= boat_min_km) {
 		utils.log("rule \'all modes - update green points\': counting Boat green points");
 		Double boatDaily = $boatTrips.getPeriodCurrentScore("daily");
 		if (boatDaily <= boat_daily_max) {
@@ -162,7 +165,7 @@ then
 	}
 	
 	//handling of carpooling points
-	if($carpooling != null) {
+	if($carpooling != null && (Double) $carpooling >= carpooling_min_km) {
 		utils.log("rule \'all modes - update green points\': counting Carpooling green points");
 		Double carpoolingDaily = $carpoolingTrips.getPeriodCurrentScore("daily");
 		if( carpoolingDaily <= carpooling_daily_max) {

@@ -186,27 +186,27 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
          execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 2.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 10.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 3.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 5.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 1.0);
         input = new ExecData(GAME, ACTION, "Cyclop", data);
         execList.add(input);
 
@@ -288,13 +288,51 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         execList.add(input);
 
         data = new HashMap<String, Object>();
-        data.put("boatDistance", 0.0);
+        data.put("boatDistance", 2.0);
+        input = new ExecData(GAME, ACTION, "Gambit", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("boatDistance", 0.1);
         input = new ExecData(GAME, ACTION, "Gambit", data);
         execList.add(input);
 
         data = new HashMap<String, Object>();
         data.put("surveyType", "boat");
         input = new ExecData(GAME, "boat_survey_complete", "Cable", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Mystique", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("boatDistance", 4.3);
+        input = new ExecData(GAME, ACTION, "Mystique", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("boatDistance", 0.0);
+        input = new ExecData(GAME, ACTION, "Magneto", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 0.0);
+        data.put("driverTrip", false);
+        input = new ExecData(GAME, ACTION, "Mimo", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 10.0);
+        data.put("driverTrip", false);
+        input = new ExecData(GAME, ACTION, "Mimo", data);
+        execList.add(input);
+
+        data = new HashMap<String, Object>();
+        data.put("carpoolingDistance", 0.8);
+        data.put("driverTrip", false);
+        input = new ExecData(GAME, ACTION, "Mimo", data);
         execList.add(input);
     }
 
@@ -330,6 +368,17 @@ public class PlayAndGo2020FerraraGameTest extends GameTest {
         assertionPoint(GAME, 1.0, "Gambit", "Boat_Trips");
         assertionPoint(GAME, 110.0, "Gambit", "green leaves");
         assertionPoint(GAME, 0.0, "Cable", "green leaves");
+
+        // test min boat km
+        assertionPoint(GAME, 10.0, "Mystique", "green leaves");
+        assertionPoint(GAME, 1.0, "Mystique", "Boat_Trips");
+        assertionPoint(GAME, 0.0, "Magneto", "green leaves");
+        assertionPoint(GAME, 0.0, "Magneto", "Boat_Trips");
+
+        // test min carpooling km
+        assertionPoint(GAME, 5.0, "Mimo", "green leaves");
+        assertionPoint(GAME, 1.0, "Mimo", "Carpooling_Trips");
+        assertionPoint(GAME, 10.0, "Mimo", "Carpooling_Km");
 
     }
 
