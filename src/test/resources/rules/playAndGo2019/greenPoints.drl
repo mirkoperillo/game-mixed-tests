@@ -174,8 +174,8 @@ then
 	
 	utils.log("calcultated score: " + score );
 	if(score > 0.0) {
-		$pc.setScore($pc.getScore() + score);
-		update($pc);
+		double newScore = $pc.getScore() + score; 
+		modify($pc) { setScore(newScore) }
 	} else {
 		utils.log("No score to update");
 	}
@@ -189,6 +189,6 @@ when
     $pc : PointConcept(name == "green leaves")
 then
 	utils.log("apply \'recommendation bonus\'");
-	$pc.setScore($pc.getScore() + recommendation_bonus);
-    update($pc); 
+	double newScore = $pc.getScore() + recommendation_bonus; 
+	modify($pc) { setScore(newScore) }
 end

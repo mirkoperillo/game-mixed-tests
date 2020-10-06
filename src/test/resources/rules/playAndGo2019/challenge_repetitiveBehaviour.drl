@@ -54,30 +54,10 @@ rule "repetitiveBehaviour"
         Player($playerId : id)
         Game( $gameId: id)
     then
-        
         utils.log('repetitiveBehaviour COMPLETED');
-        
         $c.completed();
-        
         // assign bonus
-		//How are the point bounded to the player???
-		if ($bonusScore instanceof Long) {
-		     $pcBonus.setScore($pcBonus.getScore() + (Long)$bonusScore );
-		} else if ($bonusScore instanceof Integer) {
-		     $pcBonus.setScore($pcBonus.getScore() + (Integer)$bonusScore );
-		} else {
-		   $pcBonus.setScore($pcBonus.getScore() +  (Double)$bonusScore );
-		}
-		
-		update($pcBonus);
+		double newScore = $pcBonus.getScore() + (Double) $bonusScore; 
+	    modify($pcBonus) { setScore(newScore) }
 		update($c);
-        
-        //System notification ??
-		/*ChallengeCompletedNotication ccn = new ChallengeCompletedNotication();
-		ccn.setGameId($gameId);
-		ccn.setPlayerId($playerId);
-		ccn.setTimestamp($c.getDateCompleted().getTime());
-		ccn.setChallengeName($c.getName());
-		insert(ccn);*/
-		
 end

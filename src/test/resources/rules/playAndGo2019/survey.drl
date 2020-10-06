@@ -33,8 +33,8 @@ then
 	if("start".equals($surveyType)){
 		utils.log('Initial survey COMPLETED');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+		modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end
@@ -48,8 +48,8 @@ then
 	if("end".equals($surveyType)){
 		utils.log('Final survey COMPLETED');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+		modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end
@@ -64,8 +64,8 @@ then
 	if("last".equals($surveyType)){
 		utils.log('Final survey COMPLETED');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+		modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end
@@ -79,8 +79,8 @@ then
 	if("prediction".equals($surveyType)){
 		utils.log('Prediction survey COMPLETED');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+		modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end
@@ -95,8 +95,8 @@ then
 	if("challenge".equals($surveyType)){
 		utils.log('Challenge survey COMPLETED');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+		modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end

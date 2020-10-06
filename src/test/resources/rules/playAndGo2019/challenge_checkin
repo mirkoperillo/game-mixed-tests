@@ -15,8 +15,8 @@ then
 	if("notte_dei_ricercatori".equals($checkinType)){
 		utils.log('Notte dei ricercatori - Check in DONE');
 		$challenge.completed();
-		$pc.setScore($pc.getScore() + (Double) $bonusScore);
-		update($pc);
+		double newScore = $pc.getScore() + (Double) $bonusScore; 
+	    modify($pc) { setScore(newScore) }
 		update($challenge);
 	}
 end

@@ -16,9 +16,8 @@ then
 
 	utils.log('incentiveGroupChallengeReward COMPLETED');
 	$challenge.completed();
-	$pcBonus.setScore($pcBonus.getScore() + (Double) $bonusScore);	
-	
-	update($pcBonus);
+	double newScore = $pcBonus.getScore() + (Double) $bonusScore; 
+	modify($pcBonus) { setScore(newScore) }
 	update($challenge);
 
 end
