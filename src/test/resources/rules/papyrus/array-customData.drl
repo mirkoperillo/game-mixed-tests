@@ -1,0 +1,21 @@
+package eu.trentorise.game.model
+
+import eu.trentorise.game.core.Utility;
+global Utility utils;
+
+rule "array customData"
+when
+	Action( id == 'taskCompleted')
+    InputData(
+    	$moves : data['moves'] == 5.0,
+    	$errors : data['errors'] == 0.0
+    )
+    $movesScore : PointConcept(name == "moves")
+    $errorsScore : PointConcept(name == "errors")
+    $customData : CustomData($spells: this["spells"] != null, 
+                             $spells[0].name == 'fireball',
+                             $spells[0].counter > 0)
+then
+	utils.log('Fireball summon!!!');
+end
+

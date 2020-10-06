@@ -25,7 +25,24 @@ public class PapyrusGameTest extends GameTest {
         Map<String, Object> customData = new HashMap<>();
         // customData.put("level", "level-1");
         savePlayerState("papyrus", "alice", new ArrayList<>(), customData);
+        customData = new HashMap<>();
+        Map<String, Object> obj = new HashMap<>();
+        obj.put("name", "fireball");
+        obj.put("counter", 4);
+        List<Map<String,Object>> spells = new ArrayList<>();
+        spells.add(obj);
+        obj = new HashMap<>();
+        obj.put("name", "health");
+        obj.put("counter", 1);
+        spells.add(obj);
+        
+        customData.put("spells", spells);
+        savePlayerState("papyrus", "jack", new ArrayList<>(), customData);
+        
+        customData = new HashMap<>();
+        savePlayerState("papyrus", "john", new ArrayList<>(), customData);
     }
+    
 
     @Override
     public void defineGame() {
@@ -40,7 +57,7 @@ public class PapyrusGameTest extends GameTest {
         defineGameHelper(DOMAIN, GAME, Arrays.asList(action), concepts);
 
         loadClasspathRules(GAME,
-                Arrays.asList("rules/papyrus/levels.drl", "rules/papyrus/rewards.drl"));
+                Arrays.asList("rules/papyrus/levels.drl", "rules/papyrus/rewards.drl","rules/papyrus/array-customData.drl"));
 
     }
 
@@ -51,6 +68,12 @@ public class PapyrusGameTest extends GameTest {
         d.put("errors", 0.0);
 
         ExecData data = new ExecData(GAME, "taskCompleted", "alice", d);
+        execList.add(data);
+        
+        data = new ExecData(GAME, "taskCompleted", "jack", d);
+        execList.add(data);
+        
+        data = new ExecData(GAME, "taskCompleted", "john", d);
         execList.add(data);
 
     }
