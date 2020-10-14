@@ -1,0 +1,40 @@
+package eu.trentorise.game.model
+
+
+declare AlreadyLevelUp
+end
+
+// LEVEL 1
+
+rule "level-1-errors-0"
+when
+	Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0
+    )
+    $errorsScore : PointConcept(name == "errors")
+    $customData : CustomData(this["level"] == null) // player without levels
+    not AlreadyLevelUp()
+then 
+	modify($errorsScore) { setScore((double) $errors); } // update the counter
+    modify($customData) { put("level", "level-1"); }
+    insert(new AlreadyLevelUp());
+end
+
+
+// LEVEL 2
+
+rule "level-2-errors-0"
+when
+	Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0
+    )
+    $errorsScore : PointConcept(name == "errors")
+    $customData : CustomData(this["level"] == "level-1")
+    not AlreadyLevelUp()
+then 
+	modify($errorsScore) { setScore((double) $errors); } // update the counter
+    modify($customData) { put("level", "level-2"); }
+    insert(new AlreadyLevelUp());
+end
