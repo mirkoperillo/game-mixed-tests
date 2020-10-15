@@ -1,0 +1,25 @@
+
+package eu.trentorise.game.model
+
+rule "playerInvitation"
+no-loop
+when
+    Action( id == 'playerInvited')
+     $pointsScore : PointConcept(name == "points")
+     $goldCoinScore : PointConcept(name == "gold coins")
+     $customData: CustomData()
+
+then
+    Integer actual = (Integer) $customData.get("invitations");
+    Integer newValue = 0;
+    if(actual == null) {
+      newValue = 1;
+    } else {
+      newValue = actual + 1;
+    }
+    modify($customData) { put("invitations", newValue ); }
+    double goldcoins =  $goldCoinScore.getScore();
+    double points =  $pointsScore.getScore();
+    modify($goldCoinScore) {setScore(goldcoins+1.0); } // update the counter
+	modify($pointsScore) { setScore(points+100.0); } // update the counter
+end

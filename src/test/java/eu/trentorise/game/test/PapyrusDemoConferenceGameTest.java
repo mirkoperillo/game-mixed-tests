@@ -46,7 +46,7 @@ public class PapyrusDemoConferenceGameTest extends GameTest {
 
         String action = "taskCompleted";
 
-        defineGameHelper(DOMAIN, GAME, Arrays.asList(action), concepts);
+        defineGameHelper(DOMAIN, GAME, Arrays.asList(action, "playerInvited"), concepts);
 
         try {
 			loadClasspathRules(GAME, "rules/"+GAME);
@@ -76,6 +76,14 @@ public class PapyrusDemoConferenceGameTest extends GameTest {
         d.put("timeSpent", 69);
         data = new ExecData(GAME, "taskCompleted", "john", d);
         execList.add(data);
+        
+        d = new HashMap<String, Object>();
+        data = new ExecData(GAME, "playerInvited", "xavier", d);
+        execList.add(data);
+        
+        d = new HashMap<String, Object>();
+        data = new ExecData(GAME, "playerInvited", "xavier", d);
+        execList.add(data);
 
     }
 
@@ -89,6 +97,9 @@ public class PapyrusDemoConferenceGameTest extends GameTest {
     	
     	assertionPoint(GAME, 1.0, "john", "gold coins");
     	assertionPoint(GAME, 70.0 + 35.0, "john", "points");
+    	
+    	assertionPoint(GAME, 2.0, "xavier", "gold coins");
+    	assertionPoint(GAME, 200.0, "xavier", "points");
     	
     }
 
