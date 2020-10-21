@@ -1,0 +1,1022 @@
+package eu.trentorise.game.model
+import java.lang.Math;
+
+
+// LEVEL 1
+rule "reward level-1-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent'] 
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-1')
+then
+       double time = (double) $timeSpent;
+	   double points = $pointsScore.getScore();
+	   double timeBonus = 50.0 - Math.round(time/2.0);
+	   if(timeBonus < 0){
+	       timeBonus = 0.0;
+	   }
+       double rewardPoints =   50.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter    
+       
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+rule "reward level-1-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-1')
+then
+        double time = (double) $timeSpent;
+       double points = $pointsScore.getScore();
+       double timeBonus = 50.0 - Math.round(time/2.0);
+       if(timeBonus < 0){
+       	  timeBonus = 0.0;
+       }
+       double rewardPoints =   30.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-1-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-1')
+then
+         double time = (double) $timeSpent;
+        double points = $pointsScore.getScore();
+        double timeBonus = 50.0 - Math.round(time/2.0);
+        if(timeBonus < 0){
+              	timeBonus = 0.0;
+        }
+       double rewardPoints =   20.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+rule "reward level-1-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-1')
+then
+        double time = (double) $timeSpent;
+        double timeBonus = 50.0 - Math.round(time/2.0);
+        if(timeBonus < 0){
+              	  timeBonus = 0.0;
+        }
+	   double points = $pointsScore.getScore();
+       double rewardPoints =   10.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+// LEVEL 2
+rule "reward level-2-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent'] 
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-2')
+then
+       double time = (double) $timeSpent;
+       double timeBonus = 70.0 -time;
+       if(timeBonus < 0){
+                   timeBonus = 0.0;
+       }
+       double points = $pointsScore.getScore();
+       double rewardPoints =   70.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter    
+       
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 30){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+
+rule "reward level-2-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-2')
+then
+        double time = (double) $timeSpent;
+       double timeBonus = 70.0 -time;
+        if(timeBonus < 0){
+              timeBonus = 0.0;
+        }
+        double points = $pointsScore.getScore();
+        double rewardPoints =   55.0 + timeBonus;
+
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 30){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-2-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-2')
+then
+        double time = (double) $timeSpent;
+        double timeBonus = 70.0 -time;
+         if(timeBonus < 0){
+                     timeBonus = 0.0;
+               }
+         double points = $pointsScore.getScore();
+         double rewardPoints =   40.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 30){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-2-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-2')
+then
+       double time = (double) $timeSpent;
+              double timeBonus = 70.0 -time;
+               if(timeBonus < 0){
+                     timeBonus = 0.0;
+               }
+               double points = $pointsScore.getScore();
+               double rewardPoints =   25.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 30){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+// LEVEL 3
+
+
+rule "reward level-3-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-3')
+then
+
+        double time = (double) $timeSpent;
+       double timeBonus = 120.0 - Math.round(time/2.0);
+       if(timeBonus < 0){
+                timeBonus = 0.0;
+       }
+       double points = $pointsScore.getScore();
+
+       double rewardPoints =   120.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-3-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-3')
+then
+        double time = (double) $timeSpent;
+       double timeBonus = 120.0 - Math.round(time/2.0);
+       if(timeBonus < 0){
+                       timeBonus = 0.0;
+        }
+        double points = $pointsScore.getScore();
+        double rewardPoints =   100.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-3-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-3')
+then
+        double time = (double) $timeSpent;
+              double timeBonus = 120.0 - Math.round(time/2.0);
+              if(timeBonus < 0){
+                       timeBonus = 0.0;
+              }
+              double points = $pointsScore.getScore();
+
+              double rewardPoints =   70.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-3-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-3')
+then
+        double time = (double) $timeSpent;
+              double timeBonus = 120.0 - Math.round(time/2.0);
+              if(timeBonus < 0){
+                       timeBonus = 0.0;
+              }
+              double points = $pointsScore.getScore();
+
+              double rewardPoints =   50.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+// LEVEL 4
+
+rule "reward level-4-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-4')
+then
+        double time = (double) $timeSpent;
+              double timeBonus = 80.0 - Math.round(time/4.0);
+              if(timeBonus < 0){
+                       timeBonus = 0.0;
+              }
+              double points = $pointsScore.getScore();
+              double rewardPoints =   80.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-4-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-4')
+then
+        double time = (double) $timeSpent;
+                     double timeBonus = 80.0 - Math.round(time/4.0);
+                     if(timeBonus < 0){
+                              timeBonus = 0.0;
+                     }
+                     double points = $pointsScore.getScore();
+                     double rewardPoints =   70.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-4-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-4')
+then
+        double time = (double) $timeSpent;
+                     double timeBonus = 80.0 - Math.round(time/4.0);
+                     if(timeBonus < 0){
+                              timeBonus = 0.0;
+                     }
+                     double points = $pointsScore.getScore();
+                     double rewardPoints =   60.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-4-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-4')
+then
+        double time = (double) $timeSpent;
+                     double timeBonus = 80.0 - Math.round(time/4.0);
+                     if(timeBonus < 0){
+                              timeBonus = 0.0;
+                     }
+                     double points = $pointsScore.getScore();
+                     double rewardPoints =   50.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+// LEVEL 5
+
+rule "reward level-5-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-5')
+then
+        double time = (double) $timeSpent;
+                     double timeBonus = 80.0 - Math.round(time/4.0);
+                     if(timeBonus < 0){
+                              timeBonus = 0.0;
+                     }
+                     double points = $pointsScore.getScore();
+                     double rewardPoints =   80.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-5-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-5')
+then
+       double time = (double) $timeSpent;
+                     double timeBonus = 80.0 - Math.round(time/4.0);
+                     if(timeBonus < 0){
+                              timeBonus = 0.0;
+                     }
+                     double points = $pointsScore.getScore();
+                     double rewardPoints =   70.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-5-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-5')
+then
+       double time = (double) $timeSpent;
+                    double timeBonus = 80.0 - Math.round(time/4.0);
+                    if(timeBonus < 0){
+                             timeBonus = 0.0;
+                    }
+                    double points = $pointsScore.getScore();
+                    double rewardPoints =   60.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-5-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-5')
+then
+       double time = (double) $timeSpent;
+                    double timeBonus = 80.0 - Math.round(time/4.0);
+                    if(timeBonus < 0){
+                             timeBonus = 0.0;
+                    }
+                    double points = $pointsScore.getScore();
+                    double rewardPoints =   50.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+// LEVEL 6
+
+rule "reward level-6-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-6')
+then
+         double time = (double) $timeSpent;
+               double timeBonus = 100.0 -time;
+                if(timeBonus < 0){
+                            timeBonus = 0.0;
+                      }
+                double points = $pointsScore.getScore();
+                double rewardPoints =   100.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+
+rule "reward level-6-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-6')
+then
+        double time = (double) $timeSpent;
+                      double timeBonus = 100.0 -time;
+                       if(timeBonus < 0){
+                                   timeBonus = 0.0;
+                             }
+                       double points = $pointsScore.getScore();
+                       double rewardPoints =   80.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+rule "reward level-6-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-6')
+then
+        double time = (double) $timeSpent;
+                     double timeBonus = 100.0 -time;
+                      if(timeBonus < 0){
+                                  timeBonus = 0.0;
+                            }
+                      double points = $pointsScore.getScore();
+                      double rewardPoints =   60.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-6-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-6')
+then
+       double time = (double) $timeSpent;
+                      double timeBonus = 100.0 -time;
+                       if(timeBonus < 0){
+                                   timeBonus = 0.0;
+                             }
+                       double points = $pointsScore.getScore();
+                       double rewardPoints =   50.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 60){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+// LEVEL 7
+
+rule "reward level-7-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-7')
+then
+       double time = (double) $timeSpent;
+                             double timeBonus = 300.0 -time;
+                              if(timeBonus < 0){
+                                          timeBonus = 0.0;
+                                    }
+                              double points = $pointsScore.getScore();
+                              double rewardPoints =   300.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+
+rule "reward level-7-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-7')
+then
+       double time = (double) $timeSpent;
+                                    double timeBonus = 300.0 -time;
+                                     if(timeBonus < 0){
+                                                 timeBonus = 0.0;
+                                           }
+                                     double points = $pointsScore.getScore();
+                                     double rewardPoints =   250.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+rule "reward level-7-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-7')
+then
+        double time = (double) $timeSpent;
+                                     double timeBonus = 300.0 -time;
+                                      if(timeBonus < 0){
+                                                  timeBonus = 0.0;
+                                            }
+                                      double points = $pointsScore.getScore();
+                                      double rewardPoints =   200.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-7-errors-great-equal-3"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >= 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-7')
+then
+       double time = (double) $timeSpent;
+                                    double timeBonus = 300.0 -time;
+                                     if(timeBonus < 0){
+                                                 timeBonus = 0.0;
+                                           }
+                                     double points = $pointsScore.getScore();
+                                     double rewardPoints =   150.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 90){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+
+// LEVEL 8
+
+rule "reward level-8-0errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 0.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+       double time = (double) $timeSpent;
+       	   double points = $pointsScore.getScore();
+       	   double timeBonus = 500.0 - Math.round(time/2.0);
+       	   if(timeBonus < 0){
+       	       timeBonus = 0.0;
+       	   }
+              double rewardPoints =   500.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 3.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-8-1errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 1.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+        double time = (double) $timeSpent;
+              	   double points = $pointsScore.getScore();
+              	   double timeBonus = 500.0 - Math.round(time/2.0);
+              	   if(timeBonus < 0){
+              	       timeBonus = 0.0;
+              	   }
+                     double rewardPoints =   450.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 2.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-8-2errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 2.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+        double time = (double) $timeSpent;
+              	   double points = $pointsScore.getScore();
+              	   double timeBonus = 500.0 - Math.round(time/2.0);
+              	   if(timeBonus < 0){
+              	       timeBonus = 0.0;
+              	   }
+                     double rewardPoints =   400.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 1.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-8-3errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 3.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+        double time = (double) $timeSpent;
+              	   double points = $pointsScore.getScore();
+              	   double timeBonus = 500.0 - Math.round(time/2.0);
+              	   if(timeBonus < 0){
+              	       timeBonus = 0.0;
+              	   }
+                     double rewardPoints =   350.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-8-4errors"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] == 4.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+        double time = (double) $timeSpent;
+              	   double points = $pointsScore.getScore();
+              	   double timeBonus = 500.0 - Math.round(time/2.0);
+              	   if(timeBonus < 0){
+              	       timeBonus = 0.0;
+              	   }
+                     double rewardPoints =   300.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end
+
+rule "reward level-8-errors-great-equal-5"
+salience -1000
+when
+    Action( id == 'taskCompleted')
+    InputData(
+    	$errors : data['errors'] >=5.0,
+        $timeSpent : data['timeSpent']
+    )
+    $pointsScore : PointConcept(name == "points")
+    $goldCoinScore : PointConcept(name == "gold coins")
+    $customData : CustomData(this["level"] == 'level-8')
+then
+       double time = (double) $timeSpent;
+                     	   double points = $pointsScore.getScore();
+                     	   double timeBonus = 500.0 - Math.round(time/2.0);
+                     	   if(timeBonus < 0){
+                     	       timeBonus = 0.0;
+                     	   }
+                            double rewardPoints =   200.0 + timeBonus;
+       modify($pointsScore) { setScore(points+rewardPoints); } // update the counter
+
+       double goldcoins =  $goldCoinScore.getScore();
+       double rewardGold = 0.0;
+       if(time < 120){
+         rewardGold = rewardGold+1.0;
+       }
+	   modify($goldCoinScore) { setScore(goldcoins+rewardGold); } // update the counter
+end

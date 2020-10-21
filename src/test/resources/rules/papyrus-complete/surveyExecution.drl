@@ -1,0 +1,16 @@
+package eu.trentorise.game.model
+
+rule "surveyExecution"
+when
+    Action( id == 'surveyDone')
+     $pointsScore : PointConcept(name == "points")
+     $goldCoinScore : PointConcept(name == "gold coins")
+     $customData : CustomData(this["questionnaireFilled"] == false || this["questionnaireFilled"] == null) // player without questionnarie filled
+then
+	  double goldcoins =  $goldCoinScore.getScore();
+     double points =  $pointsScore.getScore();
+
+	modify($goldCoinScore) { setScore(goldcoins+3.0); } // update the counter
+	modify($pointsScore) { setScore(points+200.0); } // update the counter
+    modify($customData) { put("questionnaireFilled", true); }
+end
