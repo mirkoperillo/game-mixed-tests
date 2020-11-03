@@ -75,16 +75,13 @@ public class InnoweeeGameTest extends GameTest {
 
 
     private PointConcept attachPeriods(PointConcept pc) {
-        /**
-         * ACTUALLY this addPeriod signature is supported only by game-engine on master branch
-         */
         // PROD pc.addPeriod("R1", date("02/12/2019"), date("07/12/2019"), -1);
-        pc.addPeriod("R1", date("29/02/2020"), date("07/03/2020"), -1);
-        pc.addPeriod("R2", date("07/03/2020"), date("16/03/2020"), -1);
-        pc.addPeriod("R3", date("16/03/2020"), date("23/03/2020"), -1);
-        pc.addPeriod("R4", date("23/03/2020"), date("30/03/2020"), -1);
-        pc.addPeriod("R5", date("30/03/2020"), date("06/04/2020"), -1);
-        pc.addPeriod("R6", date("06/04/2020"), date("18/04/2020"), -1);
+        pc.addPeriod("R1", date("03/11/2020"), date("28/11/2020"), -1);
+        pc.addPeriod("R2", date("28/11/2020"), date("05/12/2020"), -1);
+        pc.addPeriod("R3", date("05/12/2020"), date("19/12/2020"), -1);
+        pc.addPeriod("R4", date("19/12/2020"), date("16/01/2021"), -1);
+        pc.addPeriod("R5", date("16/01/2021"), date("23/01/2021"), -1);
+        pc.addPeriod("R6", date("23/01/2021"), date("30/01/2021"), -1);
 
         return pc;
     }
